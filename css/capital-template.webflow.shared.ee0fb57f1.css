@@ -2239,7 +2239,7 @@ h6 {
 }
 
 p {
-  color: var(--dim-grey);
+  color: white;
   margin-bottom: 0;
 }
 
@@ -3219,7 +3219,7 @@ figcaption {
 }
 
 .home-hero-bottom {
-  background-color: white;
+  background-color: black;
   border-top-left-radius: .625rem;
   border-top-right-radius: .625rem;
   flex-direction: column;
@@ -3553,7 +3553,7 @@ figcaption {
 .navbar-toggle {
   z-index: 100;
   border: 1px none white;
-  background-color: var(--antique-white-3);
+  background-color: #be985b;
   border-radius: 100rem;
   justify-content: center;
   align-items: center;
@@ -3572,7 +3572,7 @@ figcaption {
   grid-column-gap: .5rem;
   grid-row-gap: .5rem;
   border: 1px none white;
-  background-color: var(--antique-white-3);
+  background-color: #be985b;
   color: white;
   border-radius: 100rem;
   justify-content: space-between;
@@ -3957,7 +3957,7 @@ figcaption {
 .home-logos-block {
   grid-column-gap: 4rem;
   grid-row-gap: 4rem;
-  background-color: white;
+  background-color: black;
   border-bottom-right-radius: .625rem;
   border-bottom-left-radius: .625rem;
   grid-template-rows: 1fr;
@@ -4125,7 +4125,7 @@ figcaption {
 }
 
 .home-skill-block {
-  background-color: white;
+  background-color: black;
   border-radius: .625rem;
   justify-content: flex-start;
   width: 100%;
@@ -4276,7 +4276,7 @@ figcaption {
 }
 
 .home-portfolio-item {
-  background-color: var(--antique-white-2);
+  background-color: #be985b;;
   border-radius: .625rem;
 }
 
@@ -4349,7 +4349,8 @@ figcaption {
 }
 
 .content-grid-side {
-  background-color: white;
+  background-color: black;
+  border-top-left-radius: .625rem;
   border-top-left-radius: .625rem;
   border-top-right-radius: .625rem;
   width: 100%;
@@ -4797,7 +4798,7 @@ figcaption {
 .about-team-card {
   grid-column-gap: 1rem;
   grid-row-gap: 2.5rem;
-  background-color: #be985b;
+  background-color: black;
   border-radius: .625rem;
   grid-template-rows: auto;
   grid-template-columns: 1fr .4fr;
@@ -5297,7 +5298,7 @@ figcaption {
 .faq-item {
   grid-column-gap: 2px;
   grid-row-gap: 2px;
-  background-color: var(--antique-white-3);
+  background-color: #be985b;
   border-radius: .625rem;
   flex-direction: column;
   grid-template-rows: auto;
