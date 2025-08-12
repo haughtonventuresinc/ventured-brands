@@ -3563,9 +3563,6 @@ figcaption {
   display: flex;
 }
 
-.navbar-toggle.red-toggle {
-  background-color: white;
-}
 
 .navbar-button {
   z-index: 100;
@@ -3587,8 +3584,8 @@ figcaption {
 }
 
 .navbar-button.red-button {
-  background-color: white;
-  color: #be985b;
+  color: white;
+  background-color: #be985b;
 }
 
 .icon-1x1-tiny {
