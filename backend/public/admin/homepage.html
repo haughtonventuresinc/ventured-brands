@@ -291,15 +291,15 @@
 
         // Load homepage content on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Hide any stray modals from other pages
-            const modal = document.getElementById('pageEditorModal');
-            if (modal) {
-                modal.style.display = 'none';
-                modal.classList.add('hidden');
-            }
+            console.log('DOM loaded');
             
             checkAuth();
             loadHomepageContent();
+            
+            // Attach event listeners to any existing logo remove buttons
+            setTimeout(() => {
+                attachRemoveButtonListeners();
+            }, 1000); // Wait for content to load
         });
 
         // Authentication check function
@@ -613,38 +613,67 @@
 
             if (homepageData.logoSection?.logos) {
                 homepageData.logoSection.logos.forEach((logo, index) => {
-                    addLogoItem(logo, index);
+                    addLogoItem(logo.image, logo.alt, index);
                 });
             }
+            
+            // Attach event listeners to all remove buttons
+            attachRemoveButtonListeners();
+        }
+        
+        function attachRemoveButtonListeners() {
+            const removeButtons = document.querySelectorAll('.logo-remove-btn');
+            
+            removeButtons.forEach((button, index) => {
+                // Remove existing listeners to prevent duplicates
+                button.replaceWith(button.cloneNode(true));
+                const newButton = document.querySelectorAll('.logo-remove-btn')[index];
+                
+                newButton.addEventListener('click', function() {
+                    const logoItem = this.closest('.logo-item');
+                    const container = document.getElementById('logos-container');
+                    const itemIndex = Array.from(container.children).indexOf(logoItem);
+                    removeLogo(itemIndex);
+                });
+            });
         }
 
-        function addLogoItem(logo = { image: '', alt: '' }, index = null) {
+        function addLogoItem(image = '', alt = '', index = null) {
             const container = document.getElementById('logos-container');
             const logoIndex = index !== null ? index : container.children.length;
             
             const logoItem = document.createElement('div');
             logoItem.className = 'logo-item';
             logoItem.innerHTML = `
-                <div class="logo-preview" id="logo-preview-${logoIndex}">
-                    ${logo.image ? `<img src="/${logo.image}" alt="${logo.alt}" />` : '<div class="empty">No Image</div>'}
+                <div id="logo-preview-${logoIndex}" class="logo-preview">
+                    ${image ? `<img src="/${image}" alt="${alt || 'Logo preview'}" />` : '<span>No image</span>'}
                 </div>
                 <div class="logo-fields">
                     <div class="form-group">
                         <label>Logo Image</label>
-                        <input type="file" accept="image/*" onchange="handleLogoUpload(this, ${logoIndex})" class="form-control">
-                        <input type="hidden" id="logo-image-${logoIndex}" value="${logo.image}">
+                        <input type="file" class="form-control" accept="image/*" onchange="handleLogoUpload(this, ${logoIndex})">
+                        <input type="hidden" id="logo-image-${logoIndex}" name="logo-image-${logoIndex}" value="${image}">
                     </div>
                     <div class="form-group">
                         <label>Alt Text</label>
-                        <input type="text" id="logo-alt-${logoIndex}" class="form-control" value="${logo.alt}" placeholder="Company name">
+                        <input type="text" id="logo-alt-${logoIndex}" name="logo-alt-${logoIndex}" class="form-control" placeholder="Company name" value="${alt}">
                     </div>
-                    <button type="button" class="logo-remove-btn" onclick="removeLogo(${logoIndex})">
+                    <button type="button" class="logo-remove-btn" data-index="${logoIndex}">
                         <i class="fas fa-trash"></i> Remove
                     </button>
                 </div>
             `;
             
             container.appendChild(logoItem);
+            
+            // Add event listener to the remove button
+            const removeBtn = logoItem.querySelector('.logo-remove-btn');
+            removeBtn.addEventListener('click', function() {
+                const logoItem = this.closest('.logo-item');
+                const container = document.getElementById('logos-container');
+                const itemIndex = Array.from(container.children).indexOf(logoItem);
+                removeLogo(itemIndex);
+            });
         }
 
         function addNewLogo() {
@@ -652,15 +681,23 @@
         }
 
         function removeLogo(index) {
+            // Add confirmation dialog (works in regular browsers)
             if (confirm('Are you sure you want to remove this logo?')) {
                 const container = document.getElementById('logos-container');
-                const logoItems = container.children;
+                const logoItems = Array.from(container.children);
+                
+                // Remove the specific item
                 if (logoItems[index]) {
                     logoItems[index].remove();
-                    // Re-index remaining items
-                    Array.from(logoItems).forEach((item, newIndex) => {
+                    
+                    // Re-index all remaining items after removal
+                    const remainingItems = Array.from(container.children);
+                    remainingItems.forEach((item, newIndex) => {
                         updateLogoIndexes(item, newIndex);
                     });
+                    
+                    // Re-attach event listeners to all buttons
+                    attachRemoveButtonListeners();
                 }
             }
         }
@@ -673,11 +710,17 @@
             const altInput = logoItem.querySelector('input[type="text"]');
             const removeBtn = logoItem.querySelector('.logo-remove-btn');
 
-            preview.id = `logo-preview-${newIndex}`;
-            fileInput.setAttribute('onchange', `handleLogoUpload(this, ${newIndex})`);
-            hiddenInput.id = `logo-image-${newIndex}`;
-            altInput.id = `logo-alt-${newIndex}`;
-            removeBtn.setAttribute('onclick', `removeLogo(${newIndex})`);
+            if (preview) preview.id = `logo-preview-${newIndex}`;
+            if (fileInput) fileInput.setAttribute('onchange', `handleLogoUpload(this, ${newIndex})`);
+            if (hiddenInput) {
+                hiddenInput.id = `logo-image-${newIndex}`;
+                hiddenInput.name = `logo-image-${newIndex}`;
+            }
+            if (altInput) {
+                altInput.id = `logo-alt-${newIndex}`;
+                altInput.name = `logo-alt-${newIndex}`;
+            }
+            if (removeBtn) removeBtn.setAttribute('onclick', `removeLogo(${newIndex})`);
         }
 
         async function handleLogoUpload(fileInput, logoIndex) {
@@ -735,20 +778,28 @@
                 const logos = [];
                 const container = document.getElementById('logos-container');
                 
+                console.log('Saving logos, found', container.children.length, 'logo items');
+                
                 Array.from(container.children).forEach((logoItem, index) => {
                     const imageInput = logoItem.querySelector('input[type="hidden"]');
                     const altInput = logoItem.querySelector('input[type="text"]');
                     
                     if (imageInput && altInput) {
-                        const image = imageInput.value;
-                        const alt = altInput.value;
+                        const image = imageInput.value.trim();
+                        const alt = altInput.value.trim();
                         
-                        if (image || alt) { // Only save if there's at least an image or alt text
-                            logos.push({ image, alt });
+                        console.log(`Logo ${index}:`, { image, alt });
+                        
+                        if (image) { // Only save if there's an image
+                            logos.push({ 
+                                image: image,
+                                alt: alt || `Logo ${index + 1}` // Default alt text if empty
+                            });
                         }
                     }
                 });
 
+                console.log('Final logos array:', logos);
                 await saveSection('logos', { logos }, 'logos-success', 'logos-error');
             } catch (error) {
                 console.error('Error saving logos:', error);

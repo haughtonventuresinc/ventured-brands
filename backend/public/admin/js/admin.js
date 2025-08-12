@@ -15,16 +15,22 @@ class VenturedBrandsCMS {
 
     bindEvents() {
         // Login form
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.login();
-        });
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.login();
+            });
+        }
 
         // Logout
-        document.getElementById('logoutBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.logout();
-        });
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.logout();
+            });
+        }
 
         // Navigation
         document.querySelectorAll('.nav-item').forEach(link => {
@@ -36,31 +42,47 @@ class VenturedBrandsCMS {
         });
 
         // Scan pages
-        document.getElementById('scanPagesBtn').addEventListener('click', () => {
-            this.scanPages();
-        });
+        const scanPagesBtn = document.getElementById('scanPagesBtn');
+        if (scanPagesBtn) {
+            scanPagesBtn.addEventListener('click', () => {
+                this.scanPages();
+            });
+        }
 
         // Upload files
-        document.getElementById('uploadBtn').addEventListener('click', () => {
-            document.getElementById('fileInput').click();
-        });
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileInput = document.getElementById('fileInput');
+        if (uploadBtn && fileInput) {
+            uploadBtn.addEventListener('click', () => {
+                fileInput.click();
+            });
 
-        document.getElementById('fileInput').addEventListener('change', (e) => {
-            this.uploadFiles(e.target.files);
-        });
+            fileInput.addEventListener('change', (e) => {
+                this.uploadFiles(e.target.files);
+            });
+        }
 
         // Page editor
-        document.getElementById('closeEditorBtn').addEventListener('click', () => {
-            this.closePageEditor();
-        });
+        const closeEditorBtn = document.getElementById('closeEditorBtn');
+        if (closeEditorBtn) {
+            closeEditorBtn.addEventListener('click', () => {
+                this.closePageEditor();
+            });
+        }
 
-        document.getElementById('cancelEditBtn').addEventListener('click', () => {
-            this.closePageEditor();
-        });
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        if (cancelEditBtn) {
+            cancelEditBtn.addEventListener('click', () => {
+                this.closePageEditor();
+            });
+        }
 
-        document.getElementById('savePageBtn').addEventListener('click', () => {
-            this.savePage();
-        });
+        const savePageBtn = document.getElementById('savePageBtn');
+        if (savePageBtn) {
+            savePageBtn.addEventListener('click', () => {
+                this.savePage();
+            });
+        }
     }
 
     async checkAuth() {
@@ -129,15 +151,26 @@ class VenturedBrandsCMS {
     }
 
     showLogin() {
-        document.getElementById('loginModal').classList.remove('hidden');
-        document.getElementById('dashboard').classList.add('hidden');
+        const loginModal = document.getElementById('loginModal');
+        const dashboard = document.getElementById('dashboard');
+        
+        if (loginModal) loginModal.classList.remove('hidden');
+        if (dashboard) dashboard.classList.add('hidden');
     }
 
     showDashboard() {
-        document.getElementById('loginModal').classList.add('hidden');
-        document.getElementById('dashboard').classList.remove('hidden');
-        document.getElementById('userEmail').textContent = this.currentUser.email;
-        this.showSection('pages');
+        const loginModal = document.getElementById('loginModal');
+        const dashboard = document.getElementById('dashboard');
+        const userEmail = document.getElementById('userEmail');
+        
+        if (loginModal) loginModal.classList.add('hidden');
+        if (dashboard) dashboard.classList.remove('hidden');
+        if (userEmail && this.currentUser) userEmail.textContent = this.currentUser.email;
+        
+        // Only call showSection if we're on a page that has sections
+        if (document.getElementById('pagesSection')) {
+            this.showSection('pages');
+        }
     }
 
     showSection(section) {
@@ -145,7 +178,10 @@ class VenturedBrandsCMS {
         document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
         
         // Show selected section
-        document.getElementById(`${section}Section`).classList.remove('hidden');
+        const targetSection = document.getElementById(`${section}Section`);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+        }
         
         // Update navigation
         document.querySelectorAll('.nav-item').forEach(link => {

@@ -22,30 +22,6 @@
       {
         "image": "images/InspectorWiz™ NoBG.png",
         "alt": "InspectorWiz logo"
-      },
-      {
-        "image": "uploads/file-1755033711519-349839674.png",
-        "alt": "Slack logo"
-      },
-      {
-        "image": "images/stripe-light.svg",
-        "alt": "Stripe logo"
-      },
-      {
-        "image": "images/upwork-light.svg",
-        "alt": "Upwork logo"
-      },
-      {
-        "image": "images/gusto-light.svg",
-        "alt": "Gusto logo"
-      },
-      {
-        "image": "images/attentive-light.svg",
-        "alt": "Attentive logo"
-      },
-      {
-        "image": "images/dribbble-light.svg",
-        "alt": "Dribbble logo"
       }
     ]
   },
@@ -133,5 +109,5 @@
       "alt": "Dribbble logo"
     }
   ],
-  "updatedAt": "2025-08-12T21:21:56.925Z"
+  "updatedAt": "2025-08-12T21:55:15.455Z"
 }
