@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventured Brands CMS - Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Login Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #3898ec;
+            box-shadow: 0 0 0 3px rgba(56, 152, 236, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3898ec;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #2980d9;
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        .error {
+            color: #ea384c;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        /* Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-left: 16px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .user-info {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .logout-btn {
+            color: #ea384c;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .logout-btn:hover {
+            color: #d32f2f;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: #333;
+            width: 250px;
+            min-height: calc(100vh - 65px);
+            position: fixed;
+            left: 0;
+            top: 65px;
+            z-index: 50;
+        }
+        
+        .nav-menu {
+            padding: 20px 0;
+        }
+        
+        .nav-item {
+            display: block;
+            padding: 12px 24px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover,
+        .nav-item.active {
+            background: #444;
+            color: #fff;
+        }
+        
+        .nav-item i {
+            margin-right: 12px;
+            width: 16px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            min-height: calc(100vh - 65px);
+        }
+        
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .btn-secondary {
+            background: #28a745;
+            color: #fff;
+        }
+        
+        .btn-secondary:hover {
+            background: #218838;
+        }
+        
+        /* Cards */
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .card-body {
+            padding: 0;
+        }
+        
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            background: #f8f9fa;
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        
+        .table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .btn-link {
+            color: #3898ec;
+            text-decoration: none;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+        
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-link.danger {
+            color: #ea384c;
+        }
+        
+        /* Media Grid */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+            padding: 24px;
+        }
+        
+        .media-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .media-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .media-item:hover .media-overlay {
+            opacity: 1;
+        }
+        
+        .media-filename {
+            font-size: 12px;
+            color: #666;
+            padding: 8px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Utilities */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mb-0 { margin-bottom: 0; }
+        .mt-2 { margin-top: 8px; }
+        .mr-2 { margin-right: 8px; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .header-title {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="logo">
+                <h1>Ventured Brands</h1>
+                <p>CMS Admin Dashboard</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required placeholder="admin@venturedbrands.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                
+                <button type="submit" class="btn btn-full">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Login
+                </button>
+            </form>
+            
+            <div id="loginError" class="error hidden"></div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button id="sidebarToggle" class="btn" style="display: none;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="header-title">Ventured Brands CMS</h1>
+                </div>
+                
+                <div class="header-right">
+                    <span id="userEmail" class="user-info"></span>
+                    <a href="#" id="logoutBtn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <nav class="nav-menu">
+                <a href="#" data-section="pages" class="nav-item active">
+                    <i class="fas fa-file-alt"></i>Pages
+                </a>
+                <a href="#" data-section="media" class="nav-item">
+                    <i class="fas fa-images"></i>Media Library
+                </a>
+                <a href="#" data-section="users" class="nav-item">
+                    <i class="fas fa-users"></i>Users
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Pages Section -->
+            <div id="pagesSection" class="section">
+                <div class="page-header">
+                    <h2 class="page-title">Pages</h2>
+                    <button id="scanPagesBtn" class="btn btn-secondary">
+                        <i class="fas fa-sync mr-2"></i>Scan HTML Files
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Page</th>
+                                    <th>Status</th>
+                                    <th>Last Modified</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pagesTable">
+                                <!-- Pages will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Media Section -->
+            <div id="mediaSection" class="section hidden">
+                <div class="page-header">
+                    <h2 class="page-title">Media Library</h2>
+                    <div>
+                        <input type="file" id="fileInput" accept="image/*" multiple class="hidden">
+                        <button id="uploadBtn" class="btn">
+                            <i class="fas fa-upload mr-2"></i>Upload Images
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div id="mediaGrid" class="media-grid">
+                        <!-- Media files will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div id="usersSection" class="section hidden">
+                <div class="page-header">
+                    <h2 class="page-title">Users</h2>
+                    <button id="addUserBtn" class="btn">
+                        <i class="fas fa-user-plus mr-2"></i>Add User
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Last Login</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <!-- Users will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Page Editor Modal -->
+    <div id="pageEditorModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold">Edit Page Content</h3>
+                    <button id="closeEditorBtn" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <div id="pageEditorContent">
+                    <!-- Page editor content will be loaded here -->
+                </div>
+                
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button id="cancelEditBtn" class="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button id="savePageBtn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

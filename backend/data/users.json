@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1755019296828qkkl4m2lx",
+    "email": "admin@venturedbrands.com",
+    "password": "$2a$12$UB9RWYvMSMpKPtwNhxHvZ.4gg7D3kJkxtdu0C94iJxpoaTMBq49rm",
+    "role": "admin",
+    "isActive": true,
+    "createdAt": "2025-08-12T17:21:36.829Z",
+    "updatedAt": "2025-08-12T20:49:31.187Z",
+    "lastLogin": "2025-08-12T20:49:31.185Z"
+  }
+]
