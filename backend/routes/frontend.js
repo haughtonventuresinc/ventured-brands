@@ -4,6 +4,7 @@ const fs = require('fs').promises;
 const Page = require('../models/PageModel');
 const HomepageModel = require('../models/HomepageModel');
 const HomepageTemplate = require('../utils/homepageTemplate');
+const AboutTemplate = require('../utils/aboutTemplate');
 
 const router = express.Router();
 
@@ -67,9 +68,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-// About page route
+// About page route with CMS content
 router.get('/about', async (req, res) => {
-  await servePageWithContent(req, res, 'about.html', 'about');
+  try {
+    // Generate dynamic about page with CMS content
+    const dynamicHtml = await AboutTemplate.generateAboutPage();
+    res.send(dynamicHtml);
+  } catch (error) {
+    console.error('Error serving about page:', error);
+    // Fallback to static about page
+    await servePageWithContent(req, res, 'about.html', 'about');
+  }
 });
 
 // Contact page route

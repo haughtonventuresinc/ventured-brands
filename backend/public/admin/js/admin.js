@@ -225,6 +225,65 @@ class VenturedBrandsCMS {
         const tbody = document.getElementById('pagesTable');
         tbody.innerHTML = '';
 
+        // Add CMS-enabled pages first
+        const cmsPages = [
+            {
+                name: 'Homepage',
+                slug: 'homepage',
+                type: 'CMS',
+                editor: '/admin/homepage.html',
+                view: '/',
+                description: 'Complete homepage content management'
+            },
+            {
+                name: 'About Page',
+                slug: 'about',
+                type: 'CMS',
+                editor: '/admin/about.html',
+                view: '/about',
+                description: 'About page content management'
+            }
+        ];
+
+        cmsPages.forEach(page => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <div style="font-weight: 600;">${page.name}</div>
+                    <div style="font-size: 12px; color: #666;">${page.description}</div>
+                </td>
+                <td>
+                    <span class="badge badge-primary">
+                        ${page.type}
+                    </span>
+                </td>
+                <td>
+                    <span style="font-size: 12px; color: #666;">Dynamic Content</span>
+                </td>
+                <td>
+                    <a href="${page.editor}" class="btn-link" style="margin-right: 10px;">
+                        <i class="fas fa-cog"></i> CMS Editor
+                    </a>
+                    <a href="${page.view}" target="_blank" class="btn-link">
+                        <i class="fas fa-external-link-alt"></i> View
+                    </a>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        // Add separator row
+        if (pages.length > 0) {
+            const separatorRow = document.createElement('tr');
+            separatorRow.innerHTML = `
+                <td colspan="4" style="background: #f8f9fa; text-align: center; font-weight: 600; color: #666; padding: 8px;">
+                    Static Pages
+                </td>
+            `;
+            tbody.appendChild(separatorRow);
+        }
+
+        // Add regular pages
         pages.forEach(page => {
             const row = document.createElement('tr');
             row.innerHTML = `
