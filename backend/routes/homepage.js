@@ -48,10 +48,12 @@ router.put('/section/:sectionName', auth, async (req, res) => {
 // Update hero section
 router.put('/hero', auth, async (req, res) => {
   try {
-    const { title, subtitle, description } = req.body;
+    const { title, subtitle, headline1, headline2, description } = req.body;
     const updatedContent = await homepageModel.updateSection('hero', {
       title,
-      subtitle, 
+      subtitle,
+      headline1,
+      headline2,
       description
     });
     res.json({ success: true, data: updatedContent.hero, message: 'Hero section updated successfully' });
@@ -107,12 +109,13 @@ router.put('/process-cards', auth, async (req, res) => {
 // Update portfolio section
 router.put('/portfolio', auth, async (req, res) => {
   try {
-    const { title, description, buttonText, image } = req.body;
+    const { title, description, buttonText, image, portfolioItems } = req.body;
     const updatedContent = await homepageModel.updateSection('portfolioSection', {
       title,
       description,
       buttonText,
-      image
+      image,
+      portfolioItems: portfolioItems || []
     });
     res.json({ success: true, data: updatedContent.portfolioSection, message: 'Portfolio section updated successfully' });
   } catch (error) {
@@ -124,11 +127,12 @@ router.put('/portfolio', auth, async (req, res) => {
 // Update team section
 router.put('/team', auth, async (req, res) => {
   try {
-    const { title, description, buttonText } = req.body;
+    const { title, description, buttonText, teamMembers } = req.body;
     const updatedContent = await homepageModel.updateSection('teamSection', {
       title,
       description,
-      buttonText
+      buttonText,
+      teamMembers: teamMembers || []
     });
     res.json({ success: true, data: updatedContent.teamSection, message: 'Team section updated successfully' });
   } catch (error) {

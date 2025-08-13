@@ -144,29 +144,28 @@ body {
     margin-bottom: 15px;
 }
 
-/* Logo Management */
+/* Logo management styles */
 .logo-item {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 6px;
-    padding: 20px;
-    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #f9f9f9;
 }
 
 .logo-preview {
-    flex-shrink: 0;
     width: 80px;
     height: 80px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
-    overflow: hidden;
+    background: white;
+    flex-shrink: 0;
 }
 
 .logo-preview img {
@@ -175,23 +174,11 @@ body {
     object-fit: contain;
 }
 
-.logo-preview.empty {
-    background: #f0f0f0;
-    color: #999;
-    font-size: 12px;
-    text-align: center;
-}
-
 .logo-fields {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
+    display: flex;
     gap: 15px;
+    flex: 1;
     align-items: end;
-}
-
-.logo-fields .form-group {
-    margin-bottom: 0;
 }
 
 .logo-remove-btn {
@@ -202,10 +189,81 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
+    white-space: nowrap;
 }
 
 .logo-remove-btn:hover {
     background: #c82333;
+}
+
+/* Portfolio items management styles */
+.portfolio-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #f9f9f9;
+}
+
+.portfolio-preview {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    flex-shrink: 0;
+}
+
+.portfolio-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.portfolio-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 15px;
+    flex: 1;
+    align-items: end;
+}
+
+.portfolio-remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.portfolio-remove-btn:hover {
+    background: #c82333;
+}
+
+@media (max-width: 768px) {
+    .logo-item, .portfolio-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .logo-fields {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .portfolio-fields {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 }
 
 /* Image Upload Styles */

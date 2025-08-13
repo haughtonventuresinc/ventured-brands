@@ -106,61 +106,66 @@ class HomepageTemplate {
       }
 
       // Replace process cards
-      if (homepageData.processCards && homepageData.processCards.length >= 4) {
+      // Handle both object format {"0": {...}, "1": {...}} and array format
+      const processCards = Array.isArray(homepageData.processCards) 
+        ? homepageData.processCards 
+        : Object.values(homepageData.processCards || {});
+      
+      if (processCards && processCards.length >= 4) {
         // Replace card 1
         template = template.replace(
           /<div class="heading-style-h2">01<\/div>/,
-          `<div class="heading-style-h2">${homepageData.processCards[0].number}</div>`
+          `<div class="heading-style-h2">${processCards[0].number}</div>`
         );
         template = template.replace(
           /<h3 class="heading-style-h3">Pre-Seed<\/h3>/,
-          `<h3 class="heading-style-h3">${homepageData.processCards[0].title}</h3>`
+          `<h3 class="heading-style-h3">${processCards[0].title}</h3>`
         );
         template = template.replace(
-          /<p class="text-size-small text-color-white">We invest at the pre-seed stage, providing up to \$750k in capital to help founders grow to the next level\. <\/p>/,
-          `<p class="text-size-small text-color-white">${homepageData.processCards[0].description}</p>`
+          /<p class="text-size-small text-color-white">We invest at the pre-seed stage, providing[\s\S]*?next level\.[\s]*<\/p>/,
+          `<p class="text-size-small text-color-white">${processCards[0].description}</p>`
         );
 
         // Replace card 2
         template = template.replace(
           /<div class="heading-style-h2">02<\/div>/,
-          `<div class="heading-style-h2">${homepageData.processCards[1].number}</div>`
+          `<div class="heading-style-h2">${processCards[1].number}</div>`
         );
         template = template.replace(
           /<h3 class="heading-style-h3">Unicorns<\/h3>/,
-          `<h3 class="heading-style-h3">${homepageData.processCards[1].title}</h3>`
+          `<h3 class="heading-style-h3">${processCards[1].title}</h3>`
         );
         template = template.replace(
-          /<p class="text-size-small text-color-white">Our portfolio companies have reached unicorn status, and our founders maintain a large amount of equity\.<\/p>/,
-          `<p class="text-size-small text-color-white">${homepageData.processCards[1].description}</p>`
+          /<p class="text-size-small text-color-white">Our portfolio companies have reached unicorn[\s\S]*?amount of equity\.<\/p>/,
+          `<p class="text-size-small text-color-white">${processCards[1].description}</p>`
         );
 
         // Replace card 3
         template = template.replace(
           /<div class="heading-style-h2">03<\/div>/,
-          `<div class="heading-style-h2">${homepageData.processCards[2].number}</div>`
+          `<div class="heading-style-h2">${processCards[2].number}</div>`
         );
         template = template.replace(
           /<h3 class="heading-style-h3">Process<\/h3>/,
-          `<h3 class="heading-style-h3">${homepageData.processCards[2].title}</h3>`
+          `<h3 class="heading-style-h3">${processCards[2].title}</h3>`
         );
         template = template.replace(
-          /<p class="text-size-small text-color-white">Our transparent and open investment process ensures you always know where you are in our process\.<\/p>/,
-          `<p class="text-size-small text-color-white">${homepageData.processCards[2].description}</p>`
+          /<p class="text-size-small text-color-white">Our transparent and open investment process[\s\S]*?in our process\.<\/p>/,
+          `<p class="text-size-small text-color-white">${processCards[2].description}</p>`
         );
 
         // Replace card 4
         template = template.replace(
           /<div class="heading-style-h2">04<\/div>/,
-          `<div class="heading-style-h2">${homepageData.processCards[3].number}</div>`
+          `<div class="heading-style-h2">${processCards[3].number}</div>`
         );
         template = template.replace(
           /<h3 class="heading-style-h3">\$400k\+<\/h3>/,
-          `<h3 class="heading-style-h3">${homepageData.processCards[3].title}</h3>`
+          `<h3 class="heading-style-h3">${processCards[3].title}</h3>`
         );
         template = template.replace(
-          /<p class="text-size-small text-color-white">We&#x27;re passionate about helping founders grow fast, and our average initial cheque size is \$400k\.<\/p>/,
-          `<p class="text-size-small text-color-white">${homepageData.processCards[3].description}</p>`
+          /<p class="text-size-small text-color-white">We&#x27;re passionate about helping founders[\s\S]*?\$400k\.<\/p>/,
+          `<p class="text-size-small text-color-white">${processCards[3].description}</p>`
         );
       }
 
@@ -172,7 +177,7 @@ class HomepageTemplate {
         );
 
         template = template.replace(
-          /<p class="text-size-small text-align-center">Most of our portfolio companies have achieved unicorn exits with our founders holding majority equity\.<\/p>/,
+          /<p class="text-size-small text-align-center">Most of our portfolio companies have achieved[\s\S]*?unicorn exits with our founders holding majority equity\.<\/p>/,
           `<p class="text-size-small text-align-center">${homepageData.portfolioSection.description}</p>`
         );
 
@@ -187,6 +192,29 @@ class HomepageTemplate {
             `src="${homepageData.portfolioSection.image}"`
           );
         }
+
+        // Replace portfolio items grid - now we can simply replace the comment placeholder
+        if (homepageData.portfolioSection.portfolioItems && homepageData.portfolioSection.portfolioItems.length > 0) {
+          const portfolioItemsHtml = homepageData.portfolioSection.portfolioItems.map(item => `
+            <div role="listitem" class="home-portfolio-item w-dyn-item">
+              <div class="home-portfolio-height">
+                <a href="${this.escapeHtml(item.link)}" class="home-portfolio-content w-inline-block">
+                  <img loading="lazy" id="w-node-_16fa0b5f-cb2c-3679-1f7b-b2e16eff3095-ae360d93" alt="${this.escapeHtml(item.alt)}" src="${this.escapeHtml(item.image)}" class="medium-logo">
+                  <div id="w-node-_192d1b4b-12c5-db2a-9ef2-2b4ce1f6a190-ae360d93" class="portfolio-meta">
+                    <div class="text-size-tiny text-style-allcaps">${this.escapeHtml(item.category)}</div>
+                    <div class="text-size-tiny text-style-allcaps">${this.escapeHtml(item.date)}</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          `).join('');
+
+          // Replace the comment placeholder with actual portfolio items
+          template = template.replace(
+            /<!-- Portfolio items will be dynamically generated by the backend -->/,
+            portfolioItemsHtml
+          );
+        }
       }
 
       // Replace team section
@@ -197,7 +225,7 @@ class HomepageTemplate {
         );
 
         template = template.replace(
-          /<p class="text-size-regular text-color-white">Our team is passionate about working with founders who break through barriers\.<\/p>/,
+          /<p class="text-size-regular text-color-white">Our team is passionate about working with[\s\S]*?founders who break through barriers\.<\/p>/,
           `<p class="text-size-regular text-color-white">${homepageData.teamSection.description}</p>`
         );
 
@@ -205,6 +233,31 @@ class HomepageTemplate {
           /<div class="text-size-tiny text-style-allcaps">Read our story<\/div>/g,
           `<div class="text-size-tiny text-style-allcaps">${homepageData.teamSection.buttonText}</div>`
         );
+
+        // Replace team members if they exist
+        if (homepageData.teamSection.teamMembers && homepageData.teamSection.teamMembers.length > 0) {
+          const teamMembersHtml = homepageData.teamSection.teamMembers.map(member => `
+            <div class="home-team-item">
+              <div id="w-node-fa2a2f21-409d-1058-23ca-3f543935ab74-3935ab73" class="home-team-name">
+                <h3 class="heading-style-h3">${this.escapeHtml(member.name)}</h3>
+                <div class="home-team-credit">
+                  <p class="text-size-xsmall text-style-allcaps text-color-white text-weight-medium">${this.escapeHtml(member.title)}</p>
+                </div>
+              </div>
+              <div id="w-node-fa2a2f21-409d-1058-23ca-3f543935ab7a-3935ab73" class="home-team-image">
+                <div class="home-team-height"></div>
+                <div class="image-overlay"></div>
+                <img src="${this.escapeHtml(member.image)}" loading="lazy" alt="${this.escapeHtml(member.alt)}" class="image-fill" />
+              </div>
+            </div>
+          `).join('');
+
+          // Replace the comment placeholder with actual team members
+          template = template.replace(
+            /<!-- Team members will be dynamically generated by the backend -->/,
+            teamMembersHtml
+          );
+        }
       }
 
       return template;

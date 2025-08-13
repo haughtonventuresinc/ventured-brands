@@ -85,6 +85,108 @@
         .logo-item input {
             flex: 1;
         }
+        .portfolio-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .portfolio-preview {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .portfolio-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        .team-member {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .team-preview {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .team-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        .team-fields {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .team-remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            height: fit-content;
+            align-self: start;
+        }
+        .team-remove-btn:hover {
+            background: #c82333;
+        }
+        .portfolio-fields {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .portfolio-remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            height: fit-content;
+            align-self: start;
+        }
+        .portfolio-remove-btn:hover {
+            background: #c82333;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
         /* Hide any stray modals from other pages */
         #pageEditorModal {
             display: none !important;
@@ -247,13 +349,25 @@
                         <input type="text" id="portfolio-button" class="form-control" placeholder="Button text">
                     </div>
                     <div class="form-group">
-                        <label for="portfolio-image">Image</label>
+                        <label for="portfolio-image">Background Image</label>
                         <div class="image-upload-container">
                             <input type="file" id="portfolio-image-file" class="form-control" accept="image/*" onchange="handleImageUpload(this, 'portfolio-image', 'portfolio-image-preview')">
                             <input type="text" id="portfolio-image" class="form-control" placeholder="images/portfolio.jpg" readonly>
                             <div class="image-preview" id="portfolio-image-preview"></div>
                         </div>
                     </div>
+                    
+                    <h4>Portfolio Items</h4>
+                    <p>Manage the portfolio items displayed in the grid. Each item represents a company/project in your portfolio.</p>
+                    
+                    <div id="portfolio-items-container">
+                        <!-- Portfolio items will be loaded here -->
+                    </div>
+                    
+                    <button onclick="addNewPortfolioItem()" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Add Portfolio Item
+                    </button>
+                    
                     <button onclick="savePortfolioSection()" class="btn-save">
                         <i class="fas fa-save"></i> Save Portfolio Section
                     </button>
@@ -277,6 +391,18 @@
                         <label for="team-button">Button Text</label>
                         <input type="text" id="team-button" class="form-control" placeholder="Button text">
                     </div>
+                    
+                    <h4>Team Members</h4>
+                    <p>Manage the team members displayed in the team grid. Each member represents a key person in your organization.</p>
+                    
+                    <div id="team-members-container">
+                        <!-- Team members will be loaded here -->
+                    </div>
+                    
+                    <button onclick="addNewTeamMember()" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Add Team Member
+                    </button>
+                    
                     <button onclick="saveTeamSection()" class="btn-save">
                         <i class="fas fa-save"></i> Save Team Section
                     </button>
@@ -334,11 +460,11 @@
                     homepageData = result.data;
                     populateForm();
                 } else {
-                    showError('Failed to load homepage content');
+                    showError('Failed to load homepage content', 'hero-error');
                 }
             } catch (error) {
                 console.error('Error loading homepage content:', error);
-                showError('Failed to load homepage content');
+                showError('Failed to load homepage content', 'hero-error');
             } finally {
                 const loadingEl = document.getElementById('loading');
                 const contentBodyEl = document.querySelector('.content-body');
@@ -369,20 +495,28 @@
             document.getElementById('benefits-description').value = homepageData.benefitsSection?.description || '';
 
             // Portfolio section
+            console.log('Populating portfolio form with data:', homepageData.portfolioSection);
             document.getElementById('portfolio-title').value = homepageData.portfolioSection?.title || '';
             document.getElementById('portfolio-description').value = homepageData.portfolioSection?.description || '';
             document.getElementById('portfolio-button').value = homepageData.portfolioSection?.buttonText || '';
             document.getElementById('portfolio-image').value = homepageData.portfolioSection?.image || '';
+            console.log('Portfolio form populated - Title:', document.getElementById('portfolio-title').value);
             
             // Load portfolio image preview
             if (homepageData.portfolioSection?.image) {
                 loadImagePreview(homepageData.portfolioSection.image, 'portfolio-image-preview');
             }
+            
+            // Populate portfolio items
+            populatePortfolioItems();
 
             // Team section
             document.getElementById('team-title').value = homepageData.teamSection?.title || '';
             document.getElementById('team-description').value = homepageData.teamSection?.description || '';
             document.getElementById('team-button').value = homepageData.teamSection?.buttonText || '';
+            
+            // Populate team members
+            populateTeamMembers();
 
             // Process cards
             populateProcessCards();
@@ -393,7 +527,12 @@
             container.innerHTML = '';
 
             if (homepageData.processCards) {
-                homepageData.processCards.forEach((card, index) => {
+                // Handle both object format {"0": {...}, "1": {...}} and array format
+                const processCards = Array.isArray(homepageData.processCards) 
+                    ? homepageData.processCards 
+                    : Object.values(homepageData.processCards);
+                
+                processCards.forEach((card, index) => {
                     const cardHtml = `
                         <div class="process-card">
                             <h4>Card ${index + 1}</h4>
@@ -468,23 +607,117 @@
         }
 
         async function savePortfolioSection() {
+            // Collect portfolio items data
+            const portfolioItems = [];
+            const container = document.getElementById('portfolio-items-container');
+            
+            console.log('Portfolio container children count:', container.children.length);
+            
+            // If no portfolio items in the UI, preserve existing ones from homepageData
+            if (container.children.length === 0 && homepageData.portfolioSection?.portfolioItems) {
+                console.log('No portfolio items in UI, preserving existing data:', homepageData.portfolioSection.portfolioItems);
+                portfolioItems.push(...homepageData.portfolioSection.portfolioItems);
+            } else {
+                Array.from(container.children).forEach((portfolioItem, index) => {
+                    const imageInput = portfolioItem.querySelector(`#portfolio-image-${index}`);
+                    const altInput = portfolioItem.querySelector(`#portfolio-alt-${index}`);
+                    const categoryInput = portfolioItem.querySelector(`#portfolio-category-${index}`);
+                    const dateInput = portfolioItem.querySelector(`#portfolio-date-${index}`);
+                    const linkInput = portfolioItem.querySelector(`#portfolio-link-${index}`);
+                    
+                    console.log(`Portfolio item ${index} inputs:`, {
+                        image: imageInput?.value,
+                        alt: altInput?.value,
+                        category: categoryInput?.value,
+                        date: dateInput?.value,
+                        link: linkInput?.value
+                    });
+                    
+                    if (imageInput && altInput && categoryInput && dateInput && linkInput) {
+                        const image = imageInput.value.trim();
+                        const alt = altInput.value.trim();
+                        const category = categoryInput.value.trim();
+                        const date = dateInput.value.trim();
+                        const link = linkInput.value.trim();
+                        
+                        // Save all portfolio items from UI, even if they don't have images yet
+                        portfolioItems.push({
+                            image: image || '',
+                            alt: alt || `Portfolio item ${index + 1}`,
+                            category: category || 'Work',
+                            date: date || new Date().toLocaleDateString(),
+                            link: link || '#'
+                        });
+                    }
+                });
+            }
+
+            console.log('Collected portfolio items:', portfolioItems);
+
             const data = {
                 title: document.getElementById('portfolio-title').value,
                 description: document.getElementById('portfolio-description').value,
                 buttonText: document.getElementById('portfolio-button').value,
-                image: document.getElementById('portfolio-image').value
+                image: document.getElementById('portfolio-image').value,
+                portfolioItems: portfolioItems
             };
 
+            console.log('Sending portfolio data:', data);
             await saveSection('portfolio', data, 'portfolio-success', 'portfolio-error');
         }
 
         async function saveTeamSection() {
+            // Collect team members data
+            const teamMembers = [];
+            const container = document.getElementById('team-members-container');
+            
+            console.log('Team container children count:', container.children.length);
+            
+            // If no team members in the UI, preserve existing ones from homepageData
+            if (container.children.length === 0 && homepageData.teamSection?.teamMembers) {
+                console.log('No team members in UI, preserving existing data:', homepageData.teamSection.teamMembers);
+                teamMembers.push(...homepageData.teamSection.teamMembers);
+            } else {
+                Array.from(container.children).forEach((teamMember, index) => {
+                    const nameInput = teamMember.querySelector(`#team-name-${index}`);
+                    const titleInput = teamMember.querySelector(`#team-title-${index}`);
+                    const imageInput = teamMember.querySelector(`#team-image-${index}`);
+                    const altInput = teamMember.querySelector(`#team-alt-${index}`);
+                    
+                    console.log(`Team member ${index} inputs:`, {
+                        name: nameInput?.value,
+                        title: titleInput?.value,
+                        image: imageInput?.value,
+                        alt: altInput?.value
+                    });
+                    
+                    if (nameInput && titleInput && imageInput && altInput) {
+                        const name = nameInput.value.trim();
+                        const title = titleInput.value.trim();
+                        const image = imageInput.value.trim();
+                        const alt = altInput.value.trim();
+                        
+                        // Save all team members from UI
+                        teamMembers.push({
+                            name: name || `Team Member ${index + 1}`,
+                            title: title || 'Team Member',
+                            image: image || '',
+                            alt: alt || `${name} - ${title}`
+                        });
+                    }
+                });
+            }
+
+            console.log('Collected team members:', teamMembers);
+
             const data = {
                 title: document.getElementById('team-title').value,
                 description: document.getElementById('team-description').value,
-                buttonText: document.getElementById('team-button').value
+                buttonText: document.getElementById('team-button').value,
+                teamMembers: teamMembers
             };
 
+            console.log('Sending team data:', data);
             await saveSection('team', data, 'team-success', 'team-error');
         }
 
@@ -525,11 +758,16 @@
 
         function showError(message, elementId) {
             const element = document.getElementById(elementId);
-            element.textContent = message;
-            element.style.display = 'block';
-            setTimeout(() => {
-                element.style.display = 'none';
-            }, 3000);
+            if (element) {
+                element.textContent = message;
+                element.style.display = 'block';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 3000);
+            } else {
+                console.error('Error element not found:', elementId);
+                alert(message); // Fallback to alert if element not found
+            }
         }
 
         // Image upload handler
@@ -603,6 +841,387 @@
             if (imagePath) {
                 const previewContainer = document.getElementById(previewId);
                 previewContainer.innerHTML = `<img src="/${imagePath}" alt="Current image" />`;
+            }
+        }
+
+        // Portfolio items management functions
+        function populatePortfolioItems() {
+            const container = document.getElementById('portfolio-items-container');
+            container.innerHTML = '';
+
+            console.log('Portfolio data:', homepageData.portfolioSection?.portfolioItems);
+            
+            if (homepageData.portfolioSection?.portfolioItems && homepageData.portfolioSection.portfolioItems.length > 0) {
+                homepageData.portfolioSection.portfolioItems.forEach((item, index) => {
+                    console.log(`Adding portfolio item ${index}:`, item);
+                    addPortfolioItem(item.image, item.alt, item.category, item.date, item.link, index);
+                });
+            } else {
+                console.log('No portfolio items found or array is empty');
+            }
+            
+            // Attach event listeners to all remove buttons
+            attachPortfolioRemoveButtonListeners();
+        }
+
+        function addPortfolioItem(image = '', alt = '', category = '', date = '', link = '', index = null) {
+            const container = document.getElementById('portfolio-items-container');
+            const portfolioIndex = index !== null ? index : container.children.length;
+            
+            const portfolioItem = document.createElement('div');
+            portfolioItem.className = 'portfolio-item';
+            portfolioItem.innerHTML = `
+                <div id="portfolio-preview-${portfolioIndex}" class="portfolio-preview">
+                    ${image ? `<img src="/${image}" alt="${alt || 'Portfolio preview'}" />` : '<span>No image</span>'}
+                </div>
+                <div class="portfolio-fields">
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" class="form-control" accept="image/*" onchange="handlePortfolioUpload(this, ${portfolioIndex})">
+                        <input type="hidden" id="portfolio-image-${portfolioIndex}" name="portfolio-image-${portfolioIndex}" value="${image}">
+                    </div>
+                    <div class="form-group">
+                        <label>Alt Text</label>
+                        <input type="text" id="portfolio-alt-${portfolioIndex}" name="portfolio-alt-${portfolioIndex}" class="form-control" placeholder="Company name" value="${alt}">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" id="portfolio-category-${portfolioIndex}" name="portfolio-category-${portfolioIndex}" class="form-control" placeholder="Work" value="${category}">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" id="portfolio-date-${portfolioIndex}" name="portfolio-date-${portfolioIndex}" class="form-control" placeholder="1.5.2023" value="${date}">
+                    </div>
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input type="text" id="portfolio-link-${portfolioIndex}" name="portfolio-link-${portfolioIndex}" class="form-control" placeholder="work/company.html" value="${link}">
+                    </div>
+                    <button type="button" class="portfolio-remove-btn" data-index="${portfolioIndex}">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(portfolioItem);
+            
+            // Add event listener to the remove button
+            const removeBtn = portfolioItem.querySelector('.portfolio-remove-btn');
+            removeBtn.addEventListener('click', function() {
+                const portfolioItem = this.closest('.portfolio-item');
+                const container = document.getElementById('portfolio-items-container');
+                const itemIndex = Array.from(container.children).indexOf(portfolioItem);
+                removePortfolioItem(itemIndex);
+            });
+        }
+
+        function addNewPortfolioItem() {
+            addPortfolioItem();
+        }
+
+        function removePortfolioItem(index) {
+            if (confirm('Are you sure you want to remove this portfolio item?')) {
+                const container = document.getElementById('portfolio-items-container');
+                const portfolioItems = Array.from(container.children);
+                
+                // Remove the specific item
+                if (portfolioItems[index]) {
+                    portfolioItems[index].remove();
+                    
+                    // Re-index all remaining items after removal
+                    const remainingItems = Array.from(container.children);
+                    remainingItems.forEach((item, newIndex) => {
+                        updatePortfolioIndexes(item, newIndex);
+                    });
+                    
+                    // Re-attach event listeners to all buttons
+                    attachPortfolioRemoveButtonListeners();
+                }
+            }
+        }
+
+        function updatePortfolioIndexes(portfolioItem, newIndex) {
+            // Update all IDs and onclick handlers with new index
+            const preview = portfolioItem.querySelector('.portfolio-preview');
+            const fileInput = portfolioItem.querySelector('input[type="file"]');
+            const hiddenInput = portfolioItem.querySelector('input[type="hidden"]');
+            const altInput = portfolioItem.querySelector('input[name$="-alt"]');
+            const categoryInput = portfolioItem.querySelector('input[name$="-category"]');
+            const dateInput = portfolioItem.querySelector('input[name$="-date"]');
+            const linkInput = portfolioItem.querySelector('input[name$="-link"]');
+            const removeBtn = portfolioItem.querySelector('.portfolio-remove-btn');
+
+            if (preview) preview.id = `portfolio-preview-${newIndex}`;
+            if (fileInput) fileInput.setAttribute('onchange', `handlePortfolioUpload(this, ${newIndex})`);
+            if (hiddenInput) {
+                hiddenInput.id = `portfolio-image-${newIndex}`;
+                hiddenInput.name = `portfolio-image-${newIndex}`;
+            }
+            if (altInput) {
+                altInput.id = `portfolio-alt-${newIndex}`;
+                altInput.name = `portfolio-alt-${newIndex}`;
+            }
+            if (categoryInput) {
+                categoryInput.id = `portfolio-category-${newIndex}`;
+                categoryInput.name = `portfolio-category-${newIndex}`;
+            }
+            if (dateInput) {
+                dateInput.id = `portfolio-date-${newIndex}`;
+                dateInput.name = `portfolio-date-${newIndex}`;
+            }
+            if (linkInput) {
+                linkInput.id = `portfolio-link-${newIndex}`;
+                linkInput.name = `portfolio-link-${newIndex}`;
+            }
+            if (removeBtn) removeBtn.setAttribute('data-index', newIndex);
+        }
+
+        function attachPortfolioRemoveButtonListeners() {
+            const removeButtons = document.querySelectorAll('.portfolio-remove-btn');
+            
+            removeButtons.forEach((button, index) => {
+                // Remove existing listeners to prevent duplicates
+                button.replaceWith(button.cloneNode(true));
+                const newButton = document.querySelectorAll('.portfolio-remove-btn')[index];
+                
+                newButton.addEventListener('click', function() {
+                    const portfolioItem = this.closest('.portfolio-item');
+                    const container = document.getElementById('portfolio-items-container');
+                    const itemIndex = Array.from(container.children).indexOf(portfolioItem);
+                    removePortfolioItem(itemIndex);
+                });
+            });
+        }
+
+        async function handlePortfolioUpload(fileInput, portfolioIndex) {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file');
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size must be less than 5MB');
+                return;
+            }
+
+            try {
+                // Create FormData for upload
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // Upload file
+                const response = await fetch('/api/upload/image', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('cms_token')}`
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Update the hidden input with the uploaded file path
+                    document.getElementById(`portfolio-image-${portfolioIndex}`).value = result.filePath;
+                    
+                    // Update preview
+                    const previewContainer = document.getElementById(`portfolio-preview-${portfolioIndex}`);
+                    previewContainer.innerHTML = `<img src="/${result.filePath}" alt="Portfolio preview" />`;
+                } else {
+                    throw new Error(result.message || 'Upload failed');
+                }
+            } catch (error) {
+                console.error('Portfolio upload error:', error);
+                alert('Failed to upload portfolio image: ' + error.message);
+            }
+        }
+
+        // Team member management functions
+        function populateTeamMembers() {
+            const container = document.getElementById('team-members-container');
+            container.innerHTML = '';
+
+            console.log('Team members data:', homepageData.teamSection?.teamMembers);
+            
+            if (homepageData.teamSection?.teamMembers && homepageData.teamSection.teamMembers.length > 0) {
+                homepageData.teamSection.teamMembers.forEach((member, index) => {
+                    console.log(`Adding team member ${index}:`, member);
+                    addTeamMember(member.name, member.title, member.image, member.alt, index);
+                });
+            } else {
+                console.log('No team members found or array is empty');
+            }
+            
+            // Attach event listeners to all remove buttons
+            attachTeamRemoveButtonListeners();
+        }
+
+        function addTeamMember(name = '', title = '', image = '', alt = '', index = null) {
+            const container = document.getElementById('team-members-container');
+            const memberIndex = index !== null ? index : container.children.length;
+            
+            const teamMember = document.createElement('div');
+            teamMember.className = 'team-member';
+            teamMember.innerHTML = `
+                <div id="team-preview-${memberIndex}" class="team-preview">
+                    ${image ? `<img src="/${image}" alt="${alt || 'Team member preview'}" />` : '<span>No image</span>'}
+                </div>
+                <div class="team-fields">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="team-name-${memberIndex}" name="team-name-${memberIndex}" class="form-control" placeholder="Team member name" value="${name}">
+                    </div>
+                    <div class="form-group">
+                        <label>Title/Position</label>
+                        <input type="text" id="team-title-${memberIndex}" name="team-title-${memberIndex}" class="form-control" placeholder="PRINCIPAL, PARTNER, etc." value="${title}">
+                    </div>
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" class="form-control" accept="image/*" onchange="handleTeamUpload(this, ${memberIndex})">
+                        <input type="hidden" id="team-image-${memberIndex}" name="team-image-${memberIndex}" value="${image}">
+                    </div>
+                    <div class="form-group">
+                        <label>Alt Text</label>
+                        <input type="text" id="team-alt-${memberIndex}" name="team-alt-${memberIndex}" class="form-control" placeholder="Alt text for accessibility" value="${alt}">
+                    </div>
+                    <button type="button" class="team-remove-btn" data-index="${memberIndex}">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(teamMember);
+            
+            // Add event listener to the remove button
+            const removeBtn = teamMember.querySelector('.team-remove-btn');
+            removeBtn.addEventListener('click', function() {
+                const teamMember = this.closest('.team-member');
+                const container = document.getElementById('team-members-container');
+                const itemIndex = Array.from(container.children).indexOf(teamMember);
+                removeTeamMember(itemIndex);
+            });
+        }
+
+        function addNewTeamMember() {
+            addTeamMember();
+        }
+
+        function removeTeamMember(index) {
+            if (confirm('Are you sure you want to remove this team member?')) {
+                const container = document.getElementById('team-members-container');
+                const teamMembers = Array.from(container.children);
+                
+                // Remove the specific item
+                if (teamMembers[index]) {
+                    teamMembers[index].remove();
+                    
+                    // Re-index all remaining items after removal
+                    const remainingItems = Array.from(container.children);
+                    remainingItems.forEach((item, newIndex) => {
+                        updateTeamIndexes(item, newIndex);
+                    });
+                    
+                    // Re-attach event listeners to all buttons
+                    attachTeamRemoveButtonListeners();
+                }
+            }
+        }
+
+        function updateTeamIndexes(teamMember, newIndex) {
+            // Update all IDs and onclick handlers with new index
+            const preview = teamMember.querySelector('.team-preview');
+            const fileInput = teamMember.querySelector('input[type="file"]');
+            const nameInput = teamMember.querySelector('input[name$="-name"]');
+            const titleInput = teamMember.querySelector('input[name$="-title"]');
+            const imageInput = teamMember.querySelector('input[type="hidden"]');
+            const altInput = teamMember.querySelector('input[name$="-alt"]');
+            const removeBtn = teamMember.querySelector('.team-remove-btn');
+
+            if (preview) preview.id = `team-preview-${newIndex}`;
+            if (fileInput) fileInput.setAttribute('onchange', `handleTeamUpload(this, ${newIndex})`);
+            if (nameInput) {
+                nameInput.id = `team-name-${newIndex}`;
+                nameInput.name = `team-name-${newIndex}`;
+            }
+            if (titleInput) {
+                titleInput.id = `team-title-${newIndex}`;
+                titleInput.name = `team-title-${newIndex}`;
+            }
+            if (imageInput) {
+                imageInput.id = `team-image-${newIndex}`;
+                imageInput.name = `team-image-${newIndex}`;
+            }
+            if (altInput) {
+                altInput.id = `team-alt-${newIndex}`;
+                altInput.name = `team-alt-${newIndex}`;
+            }
+            if (removeBtn) removeBtn.setAttribute('data-index', newIndex);
+        }
+
+        function attachTeamRemoveButtonListeners() {
+            const removeButtons = document.querySelectorAll('.team-remove-btn');
+            removeButtons.forEach(button => {
+                button.removeEventListener('click', handleTeamRemove);
+                button.addEventListener('click', handleTeamRemove);
+            });
+        }
+
+        function handleTeamRemove(event) {
+            const teamMember = event.target.closest('.team-member');
+            const container = document.getElementById('team-members-container');
+            const itemIndex = Array.from(container.children).indexOf(teamMember);
+            removeTeamMember(itemIndex);
+        }
+
+        async function handleTeamUpload(fileInput, memberIndex) {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file');
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size must be less than 5MB');
+                return;
+            }
+
+            try {
+                // Create FormData for upload
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // Upload file
+                const response = await fetch('/api/upload/image', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('cms_token')}`
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Update the hidden input with the uploaded file path
+                    document.getElementById(`team-image-${memberIndex}`).value = result.filePath;
+                    
+                    // Update preview
+                    const previewContainer = document.getElementById(`team-preview-${memberIndex}`);
+                    previewContainer.innerHTML = `<img src="/${result.filePath}" alt="Team member preview" />`;
+                } else {
+                    throw new Error(result.message || 'Upload failed');
+                }
+            } catch (error) {
+                console.error('Team upload error:', error);
+                alert('Failed to upload team member image: ' + error.message);
             }
         }
 
