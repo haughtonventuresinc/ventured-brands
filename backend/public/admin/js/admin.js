@@ -1,6 +1,6 @@
 class VenturedBrandsCMS {
     constructor() {
-        this.apiUrl = 'http://localhost:5000/api';
+        this.apiUrl = '/api';
         this.token = localStorage.getItem('cms_token');
         this.currentUser = null;
         this.currentPage = null;
