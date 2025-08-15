@@ -144,7 +144,7 @@
                 <div class="padding-horizontal padding-small">
                   <div>
                     <div class="contact-hero-form">
-                      <h3 class="heading-style-h3">Apply for Licensing</h3>
+                      <h3 class="heading-style-h3" id="contactFormTitle">Apply for Licensing</h3>
                       <div class="form w-form">
                         <form id="email-form" name="email-form" data-name="Email Form" method="POST"
                           action="mailto:info@venturebrands.com?subject=New Licensing Application from Website"
@@ -152,21 +152,21 @@
                           data-wf-page-id="63f01df7eead46fceb360d98"
                           data-wf-element-id="f5c3513f-2424-450c-27b9-1a25499630af">
                           
-                          <div class="formv-field-wrapper"><label for="name" class="form-label">Name</label>
+                          <div class="formv-field-wrapper"><label for="name" class="form-label" id="nameLabel">Name</label>
                             <input class="form-field w-input" maxlength="256" name="name" data-name="Name" placeholder="Your full name" type="text" id="Name" required />
                           </div>
-                          <div class="formv-field-wrapper"><label for="Email" class="form-label">Email</label><input
+                          <div class="formv-field-wrapper"><label for="Email" class="form-label" id="emailLabel">Email</label><input
                               class="form-field w-input" maxlength="256" name="email" data-name="Email"
                               placeholder="Your email address" type="email" id="Email" required /></div>
-                          <div class="formv-field-wrapper"><label for="Company" class="form-label">Company / Organization</label><input
+                          <div class="formv-field-wrapper"><label for="Company" class="form-label" id="companyLabel">Company / Organization</label><input
                               class="form-field w-input" maxlength="256" name="company" data-name="Company"
                               placeholder="Your company or organization" type="text" id="Company" /></div>
                           <div class="formv-field-wrapper"><label for="Message"
-                              class="form-label">Message or Details</label><textarea placeholder="Tell us about your interest in licensing or any questions you have"
+                              class="form-label" id="messageLabel">Message or Details</label><textarea placeholder="Tell us about your interest in licensing or any questions you have"
                               maxlength="5000" id="Message" name="message"
                               data-name="Message" class="form-field is-text-area w-input" required></textarea></div>
                           <input type="submit" data-wait="Please wait..." class="submit-button w-button"
-                            value="Request Info or Send Application" />
+                            value="Request Info or Send Application" id="submitButton" />
                         </form>
                         <div class="w-form-done">
                           <div>Thank you! Your submission has been received!</div>
@@ -191,11 +191,11 @@
           <div class="padding-vertical padding-xlarge">
             <div class="padding-horizontal padding-small">
               <div class="faq-title">
-                <h2 class="heading-style-h1 text-align-center">Frequent Questions</h2>
+                <h2 class="heading-style-h1 text-align-center" id="faqTitle">Frequent Questions</h2>
               </div>
               <div class="container-large">
-                <div class="faq-grid">
-                  <div class="faq-column">
+                <div class="faq-grid" id="faqGrid">
+                  <div class="faq-column" id="faqColumn1">
                     <div id="w-node-_295cbd71-32c1-ae13-c2d3-9edeb70bd72a-b70bd72a" class="faq-item">
                       <div class="tab-item">
                         <div class="services-tab-top">
@@ -363,7 +363,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="faq-column">
+                  <div class="faq-column" id="faqColumn2">
                     <div id="w-node-_295cbd71-32c1-ae13-c2d3-9edeb70bd72a-b70bd72a" class="faq-item">
                       <div class="tab-item">
                         <div class="services-tab-top">
@@ -593,6 +593,180 @@
   <script src="js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript"></script>
   <script src="js/webflow.schunk.6c71defd36be9aef.js" type="text/javascript"></script>
   <script src="js/webflow.550d2bfa.8a00113075e7af97.js" type="text/javascript"></script>
+  
+  <script>
+    // Contact CMS Dynamic Content Loading
+    document.addEventListener('DOMContentLoaded', async function() {
+      try {
+        const response = await fetch('/api/contact');
+        if (!response.ok) {
+          console.error('Failed to load contact content');
+          return;
+        }
+        
+        const contactData = await response.json();
+        
+        // Update form content
+        if (contactData.form) {
+          const form = contactData.form;
+          
+          // Update form title
+          const titleEl = document.getElementById('contactFormTitle');
+          if (titleEl && form.title) {
+            titleEl.textContent = form.title;
+          }
+          
+          // Update form fields
+          if (form.fields) {
+            // Name field
+            if (form.fields.name) {
+              const nameLabel = document.getElementById('nameLabel');
+              const nameInput = document.getElementById('Name');
+              if (nameLabel && form.fields.name.label) {
+                nameLabel.textContent = form.fields.name.label;
+              }
+              if (nameInput && form.fields.name.placeholder) {
+                nameInput.placeholder = form.fields.name.placeholder;
+              }
+            }
+            
+            // Email field
+            if (form.fields.email) {
+              const emailLabel = document.getElementById('emailLabel');
+              const emailInput = document.getElementById('Email');
+              if (emailLabel && form.fields.email.label) {
+                emailLabel.textContent = form.fields.email.label;
+              }
+              if (emailInput && form.fields.email.placeholder) {
+                emailInput.placeholder = form.fields.email.placeholder;
+              }
+            }
+            
+            // Company field
+            if (form.fields.company) {
+              const companyLabel = document.getElementById('companyLabel');
+              const companyInput = document.getElementById('Company');
+              if (companyLabel && form.fields.company.label) {
+                companyLabel.textContent = form.fields.company.label;
+              }
+              if (companyInput && form.fields.company.placeholder) {
+                companyInput.placeholder = form.fields.company.placeholder;
+              }
+            }
+            
+            // Message field
+            if (form.fields.message) {
+              const messageLabel = document.getElementById('messageLabel');
+              const messageInput = document.getElementById('Message');
+              if (messageLabel && form.fields.message.label) {
+                messageLabel.textContent = form.fields.message.label;
+              }
+              if (messageInput && form.fields.message.placeholder) {
+                messageInput.placeholder = form.fields.message.placeholder;
+              }
+            }
+          }
+          
+          // Update submit button
+          const submitBtn = document.getElementById('submitButton');
+          if (submitBtn && form.submitButton) {
+            submitBtn.value = form.submitButton;
+          }
+        }
+        
+        // Update FAQ content
+        if (contactData.faq) {
+          // Update FAQ title
+          const faqTitleEl = document.getElementById('faqTitle');
+          if (faqTitleEl && contactData.faq.title) {
+            faqTitleEl.textContent = contactData.faq.title;
+          }
+          
+          // Render FAQ items
+          if (contactData.faq.items && contactData.faq.items.length > 0) {
+            renderFaqItems(contactData.faq.items);
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error loading contact content:', error);
+      }
+    });
+    
+    function renderFaqItems(faqItems) {
+      const column1 = document.getElementById('faqColumn1');
+      const column2 = document.getElementById('faqColumn2');
+      
+      if (!column1 || !column2) return;
+      
+      // Clear existing content
+      column1.innerHTML = '';
+      column2.innerHTML = '';
+      
+      // Sort items by sortOrder
+      const sortedItems = faqItems.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+      
+      sortedItems.forEach(item => {
+        const faqElement = createFaqElement(item);
+        
+        if (item.column === 2) {
+          column2.appendChild(faqElement);
+        } else {
+          column1.appendChild(faqElement);
+        }
+      });
+      
+      // Re-initialize Webflow interactions after DOM changes
+      setTimeout(() => {
+        if (window.Webflow && window.Webflow.require) {
+          const ix2 = window.Webflow.require('ix2');
+          if (ix2) {
+            ix2.init();
+          }
+        }
+      }, 100);
+    }
+    
+    function createFaqElement(item) {
+      const faqItem = document.createElement('div');
+      faqItem.className = 'faq-item';
+      faqItem.id = `faq-item-${item.id}`;
+      
+      faqItem.innerHTML = `
+        <div class="tab-item">
+          <div class="services-tab-top">
+            <div class="services-tab-block">
+              <div class="services-tab-grid">
+                <div class="clip">
+                  <div class="hover-text">
+                    <p class="text-size-small">${item.number || '001'}</p>
+                  </div>
+                  <div class="hover-text bottom-hover-text">
+                    <p class="text-size-small">${item.number || '001'}</p>
+                  </div>
+                </div>
+                <p class="text-size-regular">${item.question || ''}</p>
+                <div class="service-tab-icon">
+                  <img src="images/icon-close-reg.svg" loading="lazy" alt="Close icon." class="icon-1x1-xxsmall" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="services-tab-bottom">
+            <div class="services-tab-block">
+              <div class="services-tab-content">
+                <div class="services-tab-grid bottom-tab">
+                  <p class="text-size-regular">${item.answer || ''}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      return faqItem;
+    }
+  </script>
 </body>
 
 </html>

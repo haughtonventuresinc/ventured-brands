@@ -12,6 +12,7 @@ const homepageRoutes = require('./routes/homepage');
 const aboutRoutes = require('./routes/about');
 const verticalsRoutes = require('./routes/verticals');
 const portfolioRoutes = require('./routes/portfolio');
+const contactRoutes = require('./routes/contact');
 const frontendRoutes = require('./routes/frontend');
 
 const app = express();
@@ -128,6 +129,7 @@ app.use('/api/homepage', homepageRoutes);
 app.use('/api/about', aboutRoutes);
 app.use('/api/verticals', verticalsRoutes);
 app.use('/api/portfolio', portfolioRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Frontend Routes (serve website pages)
 app.use('/', frontendRoutes);

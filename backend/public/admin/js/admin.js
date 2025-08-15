@@ -280,6 +280,14 @@ class VenturedBrandsCMS {
                 editor: '/admin/portfolio.html',
                 view: '/portfolio',
                 description: 'Portfolio page hero content management'
+            },
+            {
+                name: 'Contact Page',
+                slug: 'contact',
+                type: 'CMS',
+                editor: '/admin/contact.html',
+                view: '/contact',
+                description: 'Contact page form and FAQ content management'
             }
         ];
 

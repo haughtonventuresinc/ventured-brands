@@ -332,6 +332,59 @@ class JSONDatabase {
     const success = await this.writeFile(portfolioFile, updatedData);
     return success ? updatedData : null;
   }
+
+  // Contact operations
+  async getContact() {
+    const contactFile = path.join(this.dataDir, 'contact.json');
+    try {
+      const data = await this.readFile(contactFile);
+      return data;
+    } catch (error) {
+      // Return default structure if file doesn't exist or is corrupted
+      const defaultContact = {
+        lastUpdated: new Date().toISOString(),
+        form: {
+          title: "Apply for Licensing",
+          fields: {
+            name: {
+              label: "Name",
+              placeholder: "Your full name"
+            },
+            email: {
+              label: "Email",
+              placeholder: "Your email address"
+            },
+            company: {
+              label: "Company / Organization",
+              placeholder: "Your company or organization"
+            },
+            message: {
+              label: "Message or Details",
+              placeholder: "Tell us about your interest in licensing or any questions you have"
+            }
+          },
+          submitButton: "Request Info or Send Application"
+        },
+        faq: {
+          title: "Frequent Questions",
+          items: []
+        }
+      };
+      await this.writeFile(contactFile, defaultContact);
+      return defaultContact;
+    }
+  }
+
+  async updateContact(contactData) {
+    const contactFile = path.join(this.dataDir, 'contact.json');
+    const updatedData = {
+      ...contactData,
+      lastUpdated: new Date().toISOString()
+    };
+    
+    const success = await this.writeFile(contactFile, updatedData);
+    return success ? updatedData : null;
+  }
 }
 
 module.exports = new JSONDatabase();
