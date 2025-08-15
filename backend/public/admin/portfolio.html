@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Editor - Ventured Brands CMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #64748b;
+        }
+
+        .editor-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .alert-info {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
+        .alert-danger {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f4f6;
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .mr-2 { margin-right: 8px; }
+
+        .hidden { display: none !important; }
+
+        /* Project Management Styles */
+        .project-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #f9fafb;
+            transition: all 0.2s;
+        }
+
+        .project-item:hover {
+            border-color: #d1d5db;
+            background: #f3f4f6;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .project-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #d1d5db;
+            color: #374151;
+        }
+
+        .btn-outline:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .btn-danger {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #b91c1c;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .project-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            background: #e5e7eb;
+            color: #374151;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+
+        .drag-handle {
+            cursor: move;
+            color: #9ca3af;
+            margin-right: 8px;
+        }
+
+        .drag-handle:hover {
+            color: #6b7280;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-title {
+            margin: 0;
+            color: #1f2937;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: #374151;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            min-width: 100px;
+            padding: 4px;
+        }
+
+        .removable-tag {
+            background: #3b82f6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .remove-tag {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-briefcase mr-2"></i>Portfolio Editor</h1>
+            <p>Edit the hero section content for the portfolio page. Changes will be reflected on the live website.</p>
+        </div>
+
+        <div id="loadingIndicator" class="loading">
+            <div class="spinner"></div>
+            <p>Loading portfolio content...</p>
+        </div>
+
+        <div id="editorContainer" class="editor-card hidden">
+            <div id="alertContainer"></div>
+            
+            <div class="form-group">
+                <label for="heroTitle">Hero Title</label>
+                <input type="text" id="heroTitle" class="form-control" 
+                       maxlength="100" 
+                       placeholder="Enter hero title">
+                <div class="form-text">
+                    <span id="heroTitleCount">0</span>/100 characters
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="heroDescription">Hero Description</label>
+                <textarea id="heroDescription" class="form-control" 
+                          rows="4" 
+                          maxlength="300" 
+                          placeholder="Enter hero description"></textarea>
+                <div class="form-text">
+                    <span id="heroDescriptionCount">0</span>/300 characters
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Portfolio Projects</h3>
+                <p class="form-text">Manage your portfolio projects. You can add, edit, reorder, and remove projects.</p>
+                
+                <div class="form-actions" style="margin-bottom: 20px; padding: 0; border: none;">
+                    <button id="addProjectBtn" class="btn btn-primary">
+                        <i class="fas fa-plus mr-2"></i>Add New Project
+                    </button>
+                </div>
+
+                <div id="projectsList">
+                    <!-- Projects will be loaded here -->
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button id="saveBtn" class="btn btn-primary">
+                    <i class="fas fa-save mr-2"></i>Save Changes
+                </button>
+                <a href="/admin" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                </a>
+                <a href="/portfolio" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-external-link-alt mr-2"></i>View Portfolio Page
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title">Add New Project</h3>
+                <button class="close-btn" onclick="closeProjectModal()">&times;</button>
+            </div>
+            
+            <form id="projectForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectTitle">Project Title *</label>
+                        <input type="text" id="projectTitle" class="form-control" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="projectId">Project ID *</label>
+                        <input type="text" id="projectId" class="form-control" required maxlength="50" 
+                               placeholder="e.g., airbnb, stripe">
+                        <div class="form-text">Used for URLs and internal references</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectCategory">Category *</label>
+                        <input type="text" id="projectCategory" class="form-control" required maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="projectUrl">URL *</label>
+                        <input type="text" id="projectUrl" class="form-control" required 
+                               placeholder="/work/project-name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" class="form-control" rows="3" 
+                              maxlength="200" placeholder="Brief project description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectTags">Tags</label>
+                    <div class="tags-input" id="tagsContainer">
+                        <input type="text" class="tag-input" id="tagInput" 
+                               placeholder="Type a tag and press Enter">
+                    </div>
+                    <div class="form-text">Press Enter to add tags</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="projectSortOrder">Sort Order</label>
+                        <input type="number" id="projectSortOrder" class="form-control" min="1" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="projectIsActive" checked> Active
+                        </label>
+                        <div class="form-text">Inactive projects won't be displayed</div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i>Save Project
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeProjectModal()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        class PortfolioEditor {
+            constructor() {
+                this.apiUrl = '/api';
+                this.token = localStorage.getItem('cms_token');
+                this.portfolioData = null;
+                this.editingProject = null;
+                this.currentTags = [];
+                this.init();
+            }
+
+            async init() {
+                if (!this.token) {
+                    window.location.href = '/admin';
+                    return;
+                }
+
+                await this.loadPortfolioContent();
+                this.bindEvents();
+            }
+
+            async loadPortfolioContent() {
+                try {
+                    const response = await fetch(`${this.apiUrl}/portfolio`, {
+                        headers: {
+                            'Authorization': `Bearer ${this.token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        this.portfolioData = await response.json();
+                        this.populateForm(this.portfolioData);
+                        this.renderProjects(this.portfolioData.projects || []);
+                        this.showEditor();
+                    } else if (response.status === 401) {
+                        localStorage.removeItem('cms_token');
+                        window.location.href = '/admin';
+                    } else {
+                        this.showError('Failed to load portfolio content');
+                    }
+                } catch (error) {
+                    console.error('Failed to load portfolio:', error);
+                    this.showError('Failed to load portfolio content');
+                }
+            }
+
+            populateForm(data) {
+                const heroTitle = document.getElementById('heroTitle');
+                const heroDescription = document.getElementById('heroDescription');
+                const heroTitleCount = document.getElementById('heroTitleCount');
+                const heroDescriptionCount = document.getElementById('heroDescriptionCount');
+
+                if (heroTitle && data.hero?.title) {
+                    heroTitle.value = data.hero.title;
+                    heroTitleCount.textContent = data.hero.title.length;
+                }
+
+                if (heroDescription && data.hero?.description) {
+                    heroDescription.value = data.hero.description;
+                    heroDescriptionCount.textContent = data.hero.description.length;
+                }
+            }
+
+            bindEvents() {
+                // Character count listeners
+                const heroTitle = document.getElementById('heroTitle');
+                const heroDescription = document.getElementById('heroDescription');
+                const heroTitleCount = document.getElementById('heroTitleCount');
+                const heroDescriptionCount = document.getElementById('heroDescriptionCount');
+
+                if (heroTitle && heroTitleCount) {
+                    heroTitle.addEventListener('input', () => {
+                        heroTitleCount.textContent = heroTitle.value.length;
+                    });
+                }
+
+                if (heroDescription && heroDescriptionCount) {
+                    heroDescription.addEventListener('input', () => {
+                        heroDescriptionCount.textContent = heroDescription.value.length;
+                    });
+                }
+
+                // Save button
+                const saveBtn = document.getElementById('saveBtn');
+                if (saveBtn) {
+                    saveBtn.addEventListener('click', () => {
+                        this.savePortfolio();
+                    });
+                }
+
+                // Add project button
+                const addProjectBtn = document.getElementById('addProjectBtn');
+                if (addProjectBtn) {
+                    addProjectBtn.addEventListener('click', () => {
+                        this.openProjectModal();
+                    });
+                }
+
+                // Project form
+                const projectForm = document.getElementById('projectForm');
+                if (projectForm) {
+                    projectForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.saveProject();
+                    });
+                }
+
+                // Tag input
+                const tagInput = document.getElementById('tagInput');
+                if (tagInput) {
+                    tagInput.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            this.addTag();
+                        }
+                    });
+                }
+
+                // Auto-generate project ID from title
+                const projectTitle = document.getElementById('projectTitle');
+                const projectId = document.getElementById('projectId');
+                if (projectTitle && projectId) {
+                    projectTitle.addEventListener('input', () => {
+                        if (!this.editingProject) {
+                            projectId.value = this.generateProjectId(projectTitle.value);
+                        }
+                    });
+                }
+
+                // Close modal when clicking outside
+                const projectModal = document.getElementById('projectModal');
+                if (projectModal) {
+                    projectModal.addEventListener('click', (e) => {
+                        if (e.target === projectModal) {
+                            this.closeProjectModal();
+                        }
+                    });
+                }
+
+                // Close modal with Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+                        this.closeProjectModal();
+                    }
+                });
+            }
+
+            async savePortfolio() {
+                const saveBtn = document.getElementById('saveBtn');
+                const originalText = saveBtn.innerHTML;
+                
+                try {
+                    // Show loading state
+                    saveBtn.innerHTML = '<div class="spinner mr-2"></div>Saving...';
+                    saveBtn.disabled = true;
+
+                    const heroTitle = document.getElementById('heroTitle')?.value?.trim() || '';
+                    const heroDescription = document.getElementById('heroDescription')?.value?.trim() || '';
+
+                    if (!heroTitle) {
+                        this.showError('Hero title is required');
+                        return;
+                    }
+
+                    if (!heroDescription) {
+                        this.showError('Hero description is required');
+                        return;
+                    }
+
+                    // Clean project data to only include allowed fields
+                    const cleanedProjects = (this.portfolioData.projects || []).map(project => ({
+                        id: project.id,
+                        title: project.title,
+                        category: project.category,
+                        description: project.description || '',
+                        url: project.url,
+                        tags: project.tags || [],
+                        isActive: project.isActive !== false,
+                        sortOrder: project.sortOrder || 0
+                    }));
+
+                    const portfolioData = {
+                        hero: {
+                            title: heroTitle,
+                            description: heroDescription
+                        },
+                        projects: cleanedProjects
+                    };
+
+                    // Debug: Log the data being sent
+                    console.log('Portfolio data being sent:', JSON.stringify(portfolioData, null, 2));
+
+                    const response = await fetch(`${this.apiUrl}/portfolio`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        },
+                        body: JSON.stringify(portfolioData)
+                    });
+
+                    if (response.ok) {
+                        this.showSuccess('Portfolio content updated successfully!');
+                    } else if (response.status === 401) {
+                        localStorage.removeItem('cms_token');
+                        window.location.href = '/admin';
+                    } else {
+                        const error = await response.json();
+                        this.showError(error.message || 'Failed to update portfolio content');
+                    }
+                } catch (error) {
+                    console.error('Failed to save portfolio:', error);
+                    this.showError('Failed to save portfolio content');
+                } finally {
+                    // Restore button state
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                }
+            }
+
+            renderProjects(projects) {
+                const projectsList = document.getElementById('projectsList');
+                if (!projectsList) return;
+
+                if (!projects || projects.length === 0) {
+                    projectsList.innerHTML = '<p class="form-text">No projects yet. Click "Add New Project" to get started.</p>';
+                    return;
+                }
+
+                const sortedProjects = projects.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+
+                projectsList.innerHTML = sortedProjects.map(project => `
+                    <div class="project-item" data-project-id="${project.id}">
+                        <div class="project-header">
+                            <i class="fas fa-grip-vertical drag-handle"></i>
+                            <h4 class="project-title">${project.title}</h4>
+                            <div class="project-actions">
+                                <button class="btn btn-sm btn-outline" onclick="portfolioEditor.editProject('${project.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="portfolioEditor.deleteProject('${project.id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="project-details">
+                            <div>
+                                <div class="project-meta">Category: ${project.category}</div>
+                                <div class="project-meta">URL: ${project.url}</div>
+                                <div class="project-meta">Status: ${project.isActive ? 'Active' : 'Inactive'}</div>
+                            </div>
+                            <div>
+                                <div class="project-meta">Sort Order: ${project.sortOrder || 0}</div>
+                                ${project.description ? `<div class="project-meta">Description: ${project.description}</div>` : ''}
+                            </div>
+                        </div>
+                        ${project.tags && project.tags.length > 0 ? `
+                            <div class="project-tags">
+                                ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+
+            openProjectModal(project = null) {
+                this.editingProject = project;
+                this.currentTags = project ? [...(project.tags || [])] : [];
+                
+                const modal = document.getElementById('projectModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const form = document.getElementById('projectForm');
+                
+                modalTitle.textContent = project ? 'Edit Project' : 'Add New Project';
+                
+                if (project) {
+                    document.getElementById('projectTitle').value = project.title || '';
+                    document.getElementById('projectId').value = project.id || '';
+                    document.getElementById('projectCategory').value = project.category || '';
+                    document.getElementById('projectUrl').value = project.url || '';
+                    document.getElementById('projectDescription').value = project.description || '';
+                    document.getElementById('projectSortOrder').value = project.sortOrder || 1;
+                    document.getElementById('projectIsActive').checked = project.isActive !== false;
+                    document.getElementById('projectId').disabled = true; // Don't allow changing ID when editing
+                } else {
+                    form.reset();
+                    document.getElementById('projectIsActive').checked = true;
+                    document.getElementById('projectId').disabled = false;
+                    const maxOrder = Math.max(...(this.portfolioData.projects || []).map(p => p.sortOrder || 0), 0);
+                    document.getElementById('projectSortOrder').value = maxOrder + 1;
+                }
+                
+                this.renderTags();
+                modal.classList.remove('hidden');
+            }
+
+            closeProjectModal() {
+                const modal = document.getElementById('projectModal');
+                modal.classList.add('hidden');
+                this.editingProject = null;
+                this.currentTags = [];
+                
+                // Clear form
+                const form = document.getElementById('projectForm');
+                if (form) {
+                    form.reset();
+                }
+                
+                // Clear tags container
+                const tagsContainer = document.getElementById('tagsContainer');
+                const tagInput = document.getElementById('tagInput');
+                if (tagsContainer && tagInput) {
+                    const existingTags = tagsContainer.querySelectorAll('.removable-tag');
+                    existingTags.forEach(tag => tag.remove());
+                }
+            }
+
+            generateProjectId(title) {
+                return title.toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-|-$/g, '');
+            }
+
+            addTag() {
+                const tagInput = document.getElementById('tagInput');
+                const tag = tagInput.value.trim();
+                
+                if (tag && !this.currentTags.includes(tag)) {
+                    this.currentTags.push(tag);
+                    tagInput.value = '';
+                    this.renderTags();
+                }
+            }
+
+            removeTag(tag) {
+                this.currentTags = this.currentTags.filter(t => t !== tag);
+                this.renderTags();
+            }
+
+            renderTags() {
+                const tagsContainer = document.getElementById('tagsContainer');
+                const tagInput = document.getElementById('tagInput');
+                
+                // Clear existing tags
+                const existingTags = tagsContainer.querySelectorAll('.removable-tag');
+                existingTags.forEach(tag => tag.remove());
+                
+                // Add current tags
+                this.currentTags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'removable-tag';
+                    tagElement.innerHTML = `
+                        ${tag}
+                        <button type="button" class="remove-tag" onclick="portfolioEditor.removeTag('${tag}')">&times;</button>
+                    `;
+                    tagsContainer.insertBefore(tagElement, tagInput);
+                });
+            }
+
+            async saveProject() {
+                try {
+                    const title = document.getElementById('projectTitle').value.trim();
+                    const id = document.getElementById('projectId').value.trim();
+                    const category = document.getElementById('projectCategory').value.trim();
+                    const url = document.getElementById('projectUrl').value.trim();
+                    const description = document.getElementById('projectDescription').value.trim();
+                    const sortOrder = parseInt(document.getElementById('projectSortOrder').value) || 1;
+                    const isActive = document.getElementById('projectIsActive').checked;
+
+                    if (!title || !id || !category || !url) {
+                        this.showError('Please fill in all required fields');
+                        return;
+                    }
+
+                    // Check for duplicate ID (only when adding new project)
+                    if (!this.editingProject && this.portfolioData.projects.some(p => p.id === id)) {
+                        this.showError('Project ID already exists. Please choose a different ID.');
+                        return;
+                    }
+
+                    const projectData = {
+                        id,
+                        title,
+                        category,
+                        description,
+                        url,
+                        tags: this.currentTags,
+                        isActive,
+                        sortOrder
+                    };
+
+                    if (this.editingProject) {
+                        // Update existing project
+                        const index = this.portfolioData.projects.findIndex(p => p.id === this.editingProject.id);
+                        if (index !== -1) {
+                            this.portfolioData.projects[index] = projectData;
+                        }
+                    } else {
+                        // Add new project
+                        this.portfolioData.projects.push(projectData);
+                    }
+
+                    // Clean portfolio data before sending (same as main save function)
+                    const cleanedProjects = (this.portfolioData.projects || []).map(project => ({
+                        id: project.id,
+                        title: project.title,
+                        category: project.category,
+                        description: project.description || '',
+                        url: project.url,
+                        tags: project.tags || [],
+                        isActive: project.isActive !== false,
+                        sortOrder: project.sortOrder || 0
+                    }));
+
+                    const cleanPortfolioData = {
+                        hero: this.portfolioData.hero,
+                        projects: cleanedProjects
+                    };
+
+                    // Save to backend
+                    const response = await fetch(`${this.apiUrl}/portfolio`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        },
+                        body: JSON.stringify(cleanPortfolioData)
+                    });
+
+                    if (response.ok) {
+                        this.showSuccess(`Project ${this.editingProject ? 'updated' : 'added'} successfully!`);
+                        this.renderProjects(this.portfolioData.projects);
+                        this.closeProjectModal();
+                    } else {
+                        const error = await response.json();
+                        this.showError(error.message || 'Failed to save project');
+                    }
+                } catch (error) {
+                    console.error('Failed to save project:', error);
+                    this.showError('Failed to save project');
+                }
+            }
+
+            editProject(projectId) {
+                const project = this.portfolioData.projects.find(p => p.id === projectId);
+                if (project) {
+                    this.openProjectModal(project);
+                }
+            }
+
+            async deleteProject(projectId) {
+                if (!confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+                    return;
+                }
+
+                try {
+                    this.portfolioData.projects = this.portfolioData.projects.filter(p => p.id !== projectId);
+
+                    // Clean portfolio data before sending (same as main save function)
+                    const cleanedProjects = (this.portfolioData.projects || []).map(project => ({
+                        id: project.id,
+                        title: project.title,
+                        category: project.category,
+                        description: project.description || '',
+                        url: project.url,
+                        tags: project.tags || [],
+                        isActive: project.isActive !== false,
+                        sortOrder: project.sortOrder || 0
+                    }));
+
+                    const cleanPortfolioData = {
+                        hero: this.portfolioData.hero,
+                        projects: cleanedProjects
+                    };
+
+                    // Save updated data to backend
+                    const response = await fetch(`${this.apiUrl}/portfolio`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        },
+                        body: JSON.stringify(cleanPortfolioData)
+                    });
+
+                    if (response.ok) {
+                        this.showSuccess('Project deleted successfully!');
+                        this.renderProjects(this.portfolioData.projects);
+                    } else {
+                        const error = await response.json();
+                        this.showError(error.message || 'Failed to delete project');
+                    }
+                } catch (error) {
+                    console.error('Failed to delete project:', error);
+                    this.showError('Failed to delete project');
+                }
+            }
+
+            showEditor() {
+                document.getElementById('loadingIndicator').classList.add('hidden');
+                document.getElementById('editorContainer').classList.remove('hidden');
+            }
+
+            showSuccess(message) {
+                this.showAlert(message, 'success');
+            }
+
+            showError(message) {
+                this.showAlert(message, 'danger');
+            }
+
+            showAlert(message, type) {
+                const alertContainer = document.getElementById('alertContainer');
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} mr-2"></i>
+                    ${message}
+                `;
+                
+                alertContainer.innerHTML = '';
+                alertContainer.appendChild(alert);
+
+                // Auto-hide success messages
+                if (type === 'success') {
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 5000);
+                }
+            }
+        }
+
+        // Initialize editor
+        const portfolioEditor = new PortfolioEditor();
+        
+        // Global functions for modal
+        function closeProjectModal() {
+            portfolioEditor.closeProjectModal();
+        }
+    </script>
+</body>
+</html>

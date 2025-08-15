@@ -219,6 +219,119 @@ class JSONDatabase {
     const success = await this.writeFile(verticalsFile, updatedData);
     return success ? updatedData : null;
   }
+
+  // Portfolio operations
+  async getPortfolio() {
+    const portfolioFile = path.join(this.dataDir, 'portfolio.json');
+    try {
+      const data = await this.readFile(portfolioFile);
+      return data;
+    } catch (error) {
+      // Return default structure if file doesn't exist or is corrupted
+      const defaultPortfolio = {
+        lastUpdated: new Date().toISOString(),
+        hero: {
+          title: "Explore our work",
+          description: "Sixteen of our companies have reached unicorn exits, with our founders holding a majority of the equity in their company."
+        },
+        projects: [
+          {
+            id: "slack",
+            title: "Slack",
+            category: "Work",
+            date: "10.23.2021",
+            url: "/work/slack",
+            isActive: true
+          },
+          {
+            id: "asana",
+            title: "Asana",
+            category: "Work",
+            date: "09.15.2021",
+            url: "/work/asana",
+            isActive: true
+          },
+          {
+            id: "airbnb",
+            title: "Airbnb",
+            category: "Live",
+            date: "08.12.2021",
+            url: "/work/airbnb",
+            isActive: true
+          },
+          {
+            id: "square",
+            title: "Square",
+            category: "Work",
+            date: "07.08.2021",
+            url: "/work/square",
+            isActive: true
+          },
+          {
+            id: "pendo",
+            title: "Pendo",
+            category: "Learn",
+            date: "06.22.2021",
+            url: "/work/pendo",
+            isActive: true
+          },
+          {
+            id: "zoom",
+            title: "Zoom",
+            category: "Work",
+            date: "05.18.2021",
+            url: "/work/zoom",
+            isActive: true
+          },
+          {
+            id: "gusto",
+            title: "Gusto",
+            category: "Work",
+            date: "04.14.2021",
+            url: "/work/gusto",
+            isActive: true
+          },
+          {
+            id: "docusign",
+            title: "DocuSign",
+            category: "Work",
+            date: "03.10.2021",
+            url: "/work/docusign",
+            isActive: true
+          },
+          {
+            id: "zapier",
+            title: "Zapier",
+            category: "Work",
+            date: "02.25.2021",
+            url: "/work/zapier",
+            isActive: true
+          },
+          {
+            id: "dribbble",
+            title: "Dribbble",
+            category: "Play",
+            date: "01.30.2021",
+            url: "/work/dribbble",
+            isActive: true
+          }
+        ]
+      };
+      await this.writeFile(portfolioFile, defaultPortfolio);
+      return defaultPortfolio;
+    }
+  }
+
+  async updatePortfolio(portfolioData) {
+    const portfolioFile = path.join(this.dataDir, 'portfolio.json');
+    const updatedData = {
+      ...portfolioData,
+      lastUpdated: new Date().toISOString()
+    };
+    
+    const success = await this.writeFile(portfolioFile, updatedData);
+    return success ? updatedData : null;
+  }
 }
 
 module.exports = new JSONDatabase();

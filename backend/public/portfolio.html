@@ -148,12 +148,11 @@
                     <div class="projects-description">
                       <div class="margin-bottom margin-xxsmall odd">
                         <div class="load-1">
-                          <p class="text-size-regular text-color-white medium-weight">Explore our work</p>
+                          <p class="text-size-regular text-color-white medium-weight" data-editable="hero-title">Explore our work</p>
                         </div>
                       </div>
                       <div class="load-2">
-                        <p class="text-size-regular text-color-white">Sixteen of our companies have reached unicorn
-                          exits, with our founders holding a majority of the equity in their company.</p>
+                        <p class="text-size-regular text-color-white" data-editable="hero-description">Sixteen of our companies have reached unicorn exits, with our founders holding a majority of the equity in their company.</p>
                       </div>
                     </div>
                   </div>
@@ -1079,6 +1078,158 @@
   <script src="js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript"></script>
   <script src="js/webflow.schunk.6c71defd36be9aef.js" type="text/javascript"></script>
   <script src="js/webflow.dbd60d13.a9727c3793300187.js" type="text/javascript"></script>
+  
+  <!-- Portfolio Dynamic Content Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch portfolio content from backend
+      fetch('/api/portfolio')
+        .then(response => response.json())
+        .then(data => {
+          // Update hero section paragraphs
+          const heroTitle = document.querySelector('[data-editable="hero-title"]');
+          const heroDescription = document.querySelector('[data-editable="hero-description"]');
+          
+          if (heroTitle && data.hero && data.hero.title) {
+            heroTitle.textContent = data.hero.title;
+          }
+          
+          if (heroDescription && data.hero && data.hero.description) {
+            heroDescription.textContent = data.hero.description;
+          }
+          
+          // Render projects dynamically
+          if (data.projects && data.projects.length > 0) {
+            renderProjects(data.projects);
+          }
+          
+          console.log('Portfolio content loaded successfully');
+        })
+        .catch(error => {
+          console.error('Error loading portfolio content:', error);
+        });
+    });
+
+    function renderProjects(projects) {
+      const projectsList = document.querySelector('.projects-list.w-dyn-items');
+      if (!projectsList) return;
+
+      // Filter active projects and sort by sortOrder
+      const activeProjects = projects
+        .filter(project => project.isActive !== false)
+        .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+
+      // Clear existing content
+      projectsList.innerHTML = '';
+
+      // Render each project
+      activeProjects.forEach((project, index) => {
+        const projectItem = createProjectItem(project);
+        projectsList.appendChild(projectItem);
+      });
+
+      // Re-initialize Webflow animations after DOM changes
+      setTimeout(() => {
+        // Try multiple approaches to reinitialize Webflow animations
+        if (window.Webflow) {
+          // Method 1: Try to reinitialize IX2
+          if (window.Webflow.require) {
+            try {
+              const ix2 = window.Webflow.require('ix2');
+              if (ix2 && ix2.init) {
+                ix2.init();
+              }
+            } catch (e) {
+              console.log('IX2 reinit failed, trying alternative methods');
+            }
+          }
+          
+          // Method 2: Try to trigger Webflow ready again
+          if (window.Webflow.ready) {
+            window.Webflow.ready();
+          }
+          
+          // Method 3: Manually trigger scroll events to activate scroll-based animations
+          window.dispatchEvent(new Event('scroll'));
+          window.dispatchEvent(new Event('resize'));
+        }
+        
+        // Method 4: Fallback - manually animate elements if Webflow doesn't pick them up
+        setTimeout(() => {
+          const newProjects = projectsList.querySelectorAll('.collection-item');
+          newProjects.forEach((project, index) => {
+            const animatedElements = project.querySelectorAll('.into-view-3, .into-view-4, .into-view-5, .into-view-6');
+            animatedElements.forEach((element, elemIndex) => {
+              // Check if element is still hidden (Webflow didn't animate it)
+              const computedStyle = window.getComputedStyle(element);
+              if (computedStyle.opacity === '0' || element.style.opacity === '0') {
+                setTimeout(() => {
+                  element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                  element.style.opacity = '1';
+                  element.style.transform = 'translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)';
+                }, (index * 100) + (elemIndex * 50));
+              }
+            });
+          });
+        }, 500);
+      }, 100);
+    }
+
+    function createProjectItem(project) {
+      const projectDiv = document.createElement('div');
+      const uniqueId = 'project-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+      
+      projectDiv.setAttribute('data-w-id', '2d37b423-da27-3418-6226-06c1845497bd');
+      projectDiv.setAttribute('role', 'listitem');
+      projectDiv.className = 'collection-item w-dyn-item';
+
+      // Get first tag as category display, fallback to category field
+      const displayCategory = project.tags && project.tags.length > 0 ? project.tags[0] : project.category;
+      
+      projectDiv.innerHTML = `
+        <div class="line-wrapper">
+          <div class="inside-line"></div>
+        </div>
+        <a href="${project.url}" class="projects-item w-inline-block">
+          <div class="padding-horizontal padding-small">
+            <div class="projects-item-content">
+              <div id="w-node-_8d7cc226-11c2-2411-a776-8378bab56ce9-${uniqueId}" data-w-id="8d7cc226-11c2-2411-a776-8378bab56ce9" class="tag-grid">
+                <div class="into-view-3">
+                  <div data-w-id="8bed2ba3-924c-e42a-b43c-cab614cf707e" class="tag-item tag-button">
+                    <div class="clip">
+                      <div data-w-id="64ee6df7-d9af-fb37-9a9b-cf0669793299" class="arrow-horizontal">
+                        <img src="https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f3e49df2e5665ac281a2ec_Right%20arrow%20thick%20light.svg" loading="lazy" alt="Right arrow." class="icon-1x1-small" />
+                      </div>
+                      <div class="arrow-horizontal arrow-left">
+                        <img src="https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f3e49df2e5665ac281a2ec_Right%20arrow%20thick%20light.svg" loading="lazy" alt="Right arrow." class="icon-1x1-small" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="w-node-c1fac85e-20c6-44d9-bb1a-432a872df241-${uniqueId}" class="projects-item-title">
+                <div class="into-view-4">
+                  <h3 id="w-node-_1ce81028-b8e3-f357-9634-e16d5ac7f3c0-${uniqueId}" class="text-size-large">${project.title}</h3>
+                </div>
+              </div>
+              <div id="w-node-_795b7c89-de28-ab55-27a9-a5add783e086-${uniqueId}" class="portfolio-meta">
+                <div class="into-view-5">
+                  <div class="text-size-tiny text-style-allcaps">${displayCategory}</div>
+                </div>
+                <div class="into-view-6">
+                  <div class="text-size-tiny text-style-allcaps">Portfolio</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+
+      return projectDiv;
+    }
+
+
+  </script>
 </body>
 
 </html>

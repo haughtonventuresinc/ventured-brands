@@ -11,6 +11,7 @@ const uploadRoutes = require('./routes/upload');
 const homepageRoutes = require('./routes/homepage');
 const aboutRoutes = require('./routes/about');
 const verticalsRoutes = require('./routes/verticals');
+const portfolioRoutes = require('./routes/portfolio');
 const frontendRoutes = require('./routes/frontend');
 
 const app = express();
@@ -126,6 +127,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/homepage', homepageRoutes);
 app.use('/api/about', aboutRoutes);
 app.use('/api/verticals', verticalsRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 
 // Frontend Routes (serve website pages)
 app.use('/', frontendRoutes);

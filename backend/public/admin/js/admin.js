@@ -70,6 +70,14 @@ class VenturedBrandsCMS {
             });
         }
 
+        // Save portfolio
+        const savePortfolioBtn = document.getElementById('savePortfolioBtn');
+        if (savePortfolioBtn) {
+            savePortfolioBtn.addEventListener('click', () => {
+                this.savePortfolio();
+            });
+        }
+
         // Page editor
         const closeEditorBtn = document.getElementById('closeEditorBtn');
         if (closeEditorBtn) {
@@ -206,6 +214,9 @@ class VenturedBrandsCMS {
             case 'verticals':
                 this.loadVerticals();
                 break;
+            case 'portfolio':
+                this.loadPortfolio();
+                break;
             case 'media':
                 this.loadMedia();
                 break;
@@ -261,6 +272,14 @@ class VenturedBrandsCMS {
                 editor: '/admin/verticals.html',
                 view: '/verticals',
                 description: 'Verticals page paragraph content management'
+            },
+            {
+                name: 'Portfolio Page',
+                slug: 'portfolio',
+                type: 'CMS',
+                editor: '/admin/portfolio.html',
+                view: '/portfolio',
+                description: 'Portfolio page hero content management'
             }
         ];
 
@@ -720,6 +739,141 @@ class VenturedBrandsCMS {
         } catch (error) {
             console.error('Failed to save verticals:', error);
             this.showError('Failed to save verticals content');
+        }
+    }
+
+    async loadPortfolio() {
+        try {
+            const response = await fetch(`${this.apiUrl}/portfolio`, {
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                this.renderPortfolioEditor(data);
+            } else {
+                this.showError('Failed to load portfolio content');
+            }
+        } catch (error) {
+            console.error('Failed to load portfolio:', error);
+            this.showError('Failed to load portfolio content');
+        }
+    }
+
+    renderPortfolioEditor(data) {
+        const editor = document.getElementById('portfolioEditor');
+        if (!editor) return;
+
+        editor.innerHTML = `
+            <div class="form-group">
+                <label for="heroTitle">Hero Title</label>
+                <input type="text" id="heroTitle" class="form-control" 
+                       value="${data.hero?.title || ''}" 
+                       maxlength="100" 
+                       placeholder="Enter hero title">
+                <small class="form-text text-muted">
+                    <span id="heroTitleCount">${(data.hero?.title || '').length}</span>/100 characters
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="heroDescription">Hero Description</label>
+                <textarea id="heroDescription" class="form-control" 
+                          rows="3" 
+                          maxlength="300" 
+                          placeholder="Enter hero description">${data.hero?.description || ''}</textarea>
+                <small class="form-text text-muted">
+                    <span id="heroDescriptionCount">${(data.hero?.description || '').length}</span>/300 characters
+                </small>
+            </div>
+
+            <div class="form-group">
+                <h4>Project Management</h4>
+                <p class="text-muted">Project items are managed through the complex HTML structure on the portfolio page. 
+                   Use this CMS to update the hero section content only. For project modifications, 
+                   contact your developer.</p>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    Currently showing ${data.projects?.length || 0} projects in the portfolio.
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button id="savePortfolioBtn" class="btn btn-primary">
+                    <i class="fas fa-save mr-2"></i>Save Changes
+                </button>
+            </div>
+        `;
+
+        // Add character count listeners
+        const heroTitle = document.getElementById('heroTitle');
+        const heroDescription = document.getElementById('heroDescription');
+        const heroTitleCount = document.getElementById('heroTitleCount');
+        const heroDescriptionCount = document.getElementById('heroDescriptionCount');
+
+        if (heroTitle && heroTitleCount) {
+            heroTitle.addEventListener('input', () => {
+                heroTitleCount.textContent = heroTitle.value.length;
+            });
+        }
+
+        if (heroDescription && heroDescriptionCount) {
+            heroDescription.addEventListener('input', () => {
+                heroDescriptionCount.textContent = heroDescription.value.length;
+            });
+        }
+
+        // Re-bind save button event
+        const saveBtn = document.getElementById('savePortfolioBtn');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                this.savePortfolio();
+            });
+        }
+    }
+
+    async savePortfolio() {
+        try {
+            const heroTitle = document.getElementById('heroTitle')?.value?.trim() || '';
+            const heroDescription = document.getElementById('heroDescription')?.value?.trim() || '';
+
+            if (!heroTitle) {
+                this.showError('Hero title is required');
+                return;
+            }
+
+            if (!heroDescription) {
+                this.showError('Hero description is required');
+                return;
+            }
+
+            const portfolioData = {
+                hero: {
+                    title: heroTitle,
+                    description: heroDescription
+                }
+            };
+
+            const response = await fetch(`${this.apiUrl}/portfolio`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                },
+                body: JSON.stringify(portfolioData)
+            });
+
+            if (response.ok) {
+                this.showSuccess('Portfolio content updated successfully!');
+            } else {
+                const error = await response.json();
+                this.showError(error.message || 'Failed to update portfolio content');
+            }
+        } catch (error) {
+            console.error('Failed to save portfolio:', error);
+            this.showError('Failed to save portfolio content');
         }
     }
 }
