@@ -10,6 +10,7 @@ const pageRoutes = require('./routes/pages');
 const uploadRoutes = require('./routes/upload');
 const homepageRoutes = require('./routes/homepage');
 const aboutRoutes = require('./routes/about');
+const verticalsRoutes = require('./routes/verticals');
 const frontendRoutes = require('./routes/frontend');
 
 const app = express();
@@ -124,6 +125,7 @@ app.use('/api/pages', pageRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/homepage', homepageRoutes);
 app.use('/api/about', aboutRoutes);
+app.use('/api/verticals', verticalsRoutes);
 
 // Frontend Routes (serve website pages)
 app.use('/', frontendRoutes);

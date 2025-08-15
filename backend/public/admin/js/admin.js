@@ -62,6 +62,14 @@ class VenturedBrandsCMS {
             });
         }
 
+        // Save verticals
+        const saveVerticalsBtn = document.getElementById('saveVerticalsBtn');
+        if (saveVerticalsBtn) {
+            saveVerticalsBtn.addEventListener('click', () => {
+                this.saveVerticals();
+            });
+        }
+
         // Page editor
         const closeEditorBtn = document.getElementById('closeEditorBtn');
         if (closeEditorBtn) {
@@ -195,6 +203,9 @@ class VenturedBrandsCMS {
             case 'pages':
                 this.loadPages();
                 break;
+            case 'verticals':
+                this.loadVerticals();
+                break;
             case 'media':
                 this.loadMedia();
                 break;
@@ -242,6 +253,14 @@ class VenturedBrandsCMS {
                 editor: '/admin/about.html',
                 view: '/about',
                 description: 'About page content management'
+            },
+            {
+                name: 'Verticals Page',
+                slug: 'verticals',
+                type: 'CMS',
+                editor: '/admin/verticals.html',
+                view: '/verticals',
+                description: 'Verticals page paragraph content management'
             }
         ];
 
@@ -615,6 +634,93 @@ class VenturedBrandsCMS {
                 </td>
             </tr>
         `;
+    }
+
+    async loadVerticals() {
+        try {
+            const response = await fetch(`${this.apiUrl}/verticals`);
+            const data = await response.json();
+            
+            this.renderVerticalsEditor(data.sections);
+        } catch (error) {
+            console.error('Failed to load verticals:', error);
+            this.showError('Failed to load verticals content');
+        }
+    }
+
+    renderVerticalsEditor(sections) {
+        const editor = document.getElementById('verticalsEditor');
+        editor.innerHTML = sections.map(section => `
+            <div class="vertical-section" style="margin-bottom: 30px; padding: 20px; border: 1px solid #e1e5e9; border-radius: 8px;">
+                <h4 style="margin-bottom: 15px; color: #333; font-size: 18px; font-weight: 600;">${section.title}</h4>
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Short Description:</label>
+                    <input type="text" 
+                           data-section="${section.id}" 
+                           data-field="shortDescription" 
+                           value="${section.shortDescription}" 
+                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+                           placeholder="Enter short description">
+                </div>
+                
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500; color: #555;">Long Description:</label>
+                    <textarea data-section="${section.id}" 
+                              data-field="longDescription" 
+                              rows="3" 
+                              style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; resize: vertical;"
+                              placeholder="Enter detailed description">${section.longDescription}</textarea>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    async saveVerticals() {
+        try {
+            const sections = [];
+            const sectionElements = document.querySelectorAll('.vertical-section');
+            
+            sectionElements.forEach(sectionEl => {
+                const inputs = sectionEl.querySelectorAll('input, textarea');
+                const sectionData = {};
+                
+                inputs.forEach(input => {
+                    const sectionId = input.dataset.section;
+                    const field = input.dataset.field;
+                    
+                    if (!sectionData.id) {
+                        sectionData.id = sectionId;
+                        sectionData.title = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+                    }
+                    
+                    sectionData[field] = input.value.trim();
+                });
+                
+                if (sectionData.id) {
+                    sections.push(sectionData);
+                }
+            });
+
+            const response = await fetch(`${this.apiUrl}/verticals`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                },
+                body: JSON.stringify({ sections })
+            });
+
+            if (response.ok) {
+                this.showSuccess('Verticals content updated successfully!');
+            } else {
+                const error = await response.json();
+                this.showError(error.message || 'Failed to update verticals content');
+            }
+        } catch (error) {
+            console.error('Failed to save verticals:', error);
+            this.showError('Failed to save verticals content');
+        }
     }
 }
 

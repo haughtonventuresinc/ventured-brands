@@ -166,6 +166,59 @@ class JSONDatabase {
     await this.writeFile(this.pagesFile, filteredPages);
     return true;
   }
+
+  // Verticals operations
+  async getVerticals() {
+    const verticalsFile = path.join(this.dataDir, 'verticals.json');
+    try {
+      const data = await this.readFile(verticalsFile);
+      return data;
+    } catch (error) {
+      // Return default structure if file doesn't exist or is corrupted
+      const defaultVerticals = {
+        lastUpdated: new Date().toISOString(),
+        sections: [
+          {
+            id: "live",
+            title: "Live",
+            shortDescription: "Changing lives",
+            longDescription: "Licensing brands that make daily living better, cleaner, and easier."
+          },
+          {
+            id: "work",
+            title: "Work", 
+            shortDescription: "Boosting growth",
+            longDescription: "Creating plug-and-play business models that help owners scale fast."
+          },
+          {
+            id: "play",
+            title: "Play",
+            shortDescription: "Reinventing fun",
+            longDescription: "Building nostalgic and exciting brands customers can't resist."
+          },
+          {
+            id: "learn",
+            title: "Learn",
+            shortDescription: "Pushing minds",
+            longDescription: "Designing businesses that teach, train, and inspire at scale."
+          }
+        ]
+      };
+      await this.writeFile(verticalsFile, defaultVerticals);
+      return defaultVerticals;
+    }
+  }
+
+  async updateVerticals(verticalsData) {
+    const verticalsFile = path.join(this.dataDir, 'verticals.json');
+    const updatedData = {
+      ...verticalsData,
+      lastUpdated: new Date().toISOString()
+    };
+    
+    const success = await this.writeFile(verticalsFile, updatedData);
+    return success ? updatedData : null;
+  }
 }
 
 module.exports = new JSONDatabase();
