@@ -318,44 +318,7 @@ class VenturedBrandsCMS {
             tbody.appendChild(row);
         });
 
-        // Add separator row
-        if (pages.length > 0) {
-            const separatorRow = document.createElement('tr');
-            separatorRow.innerHTML = `
-                <td colspan="4" style="background: #f8f9fa; text-align: center; font-weight: 600; color: #666; padding: 8px;">
-                    Static Pages
-                </td>
-            `;
-            tbody.appendChild(separatorRow);
-        }
-
-        // Add regular pages
-        pages.forEach(page => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
-                    <div style="font-weight: 600;">${page.name}</div>
-                    <div style="font-size: 12px; color: #666;">${page.slug}</div>
-                </td>
-                <td>
-                    <span class="badge ${page.isPublished ? 'badge-success' : 'badge-danger'}">
-                        ${page.isPublished ? 'Published' : 'Draft'}
-                    </span>
-                </td>
-                <td>
-                    ${new Date(page.lastModified).toLocaleDateString()}
-                </td>
-                <td>
-                    <a href="#" onclick="cms.editPage('${page.id}')" class="btn-link">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <a href="${page.htmlFile === 'index.html' ? '/' : '../' + page.htmlFile}" target="_blank" class="btn-link">
-                        <i class="fas fa-external-link-alt"></i> View
-                    </a>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
+        // Static pages section removed - only showing CMS-enabled pages
     }
 
     async scanPages() {
