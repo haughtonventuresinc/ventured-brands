@@ -1,101 +1,102 @@
 {
   "form": {
-    "title": "Apply for Licensing",
+    "title": "lorem ipsum dolor set amit",
     "fields": {
       "name": {
-        "label": "Name",
-        "placeholder": "Your full name"
+        "label": "lorem ipsum dolor set amit",
+        "placeholder": "lorem ipsum dolor set amit"
       },
       "email": {
-        "label": "Email",
-        "placeholder": "Your email address"
+        "label": "lorem ipsum dolor set amit",
+        "placeholder": "lorem ipsum dolor set amit"
       },
       "company": {
-        "label": "Company / Organization",
-        "placeholder": "Your company or organization"
+        "label": "lorem ipsum dolor set amit",
+        "placeholder": "lorem ipsum dolor set amit"
       },
       "message": {
-        "label": "Message or Details",
-        "placeholder": "Tell us about your interest in licensing or any questions you have"
+        "label": "lorem ipsum dolor set amit",
+        "placeholder": "lorem ipsum dolor set amit"
       }
     },
-    "submitButton": "Request Info or Send Application"
+    "submitButton": "lorem ipsum dolor set amit"
   },
   "faq": {
-    "title": "Frequent Questions",
+    "title": "lorem ipsum dolor set amit",
     "items": [
       {
         "id": "faq-001",
         "number": "001",
-        "question": "What is Ventured Brands?",
-        "answer": "Ventured Brands is a venture studio that builds, acquires, and revitalizes high-potential brands. We create franchise-ready or license-ready businesses with strong systems, powerful branding, and a proven path to growth.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 1,
         "sortOrder": 1
       },
       {
         "id": "faq-002",
         "number": "002",
-        "question": "What does \"venture studio\" mean?",
-        "answer": "A venture studio doesn't just invest in ideas — we design, build, and operate them from the ground up. We create complete business models, ready for partners to operate and scale.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 1,
         "sortOrder": 2
       },
       {
         "id": "faq-003",
         "number": "003",
-        "question": "Do you only work with your own brands?",
-        "answer": "Yes. Every brand we launch is owned and developed by Ventured Brands. This ensures we maintain full creative control, brand integrity, and a consistent standard of excellence.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 1,
         "sortOrder": 3
       },
       {
         "id": "faq-004",
         "number": "004",
-        "question": "What does it mean to license a Ventured Brand?",
-        "answer": "Licensing gives operators the right to use our brand, systems, and intellectual property to run their own location. This includes access to our playbooks, training materials, and marketing assets.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 1,
         "sortOrder": 4
       },
       {
         "id": "faq-005",
         "number": "005",
-        "question": "How is licensing different from franchising?",
-        "answer": "Licensing is a faster, more flexible way to expand a brand. While franchising has strict regulatory requirements, licensing allows us to move quickly while still maintaining brand standards.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 1,
         "sortOrder": 5
       },
       {
         "id": "faq-006",
         "number": "006",
-        "question": "Do you provide a full business setup?",
-        "answer": "Yes. Each brand is delivered as a \"business-in-a-box\" — complete with branding, operations guides, marketing strategies, technology stack, and launch support.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 2,
         "sortOrder": 6
       },
       {
         "id": "faq-007",
         "number": "007",
-        "question": "How quickly can a licensed brand be launched?",
-        "answer": "With our ready-to-go systems, many partners are able to launch in a matter of weeks. Everything from marketing to operations is set up so you can hit the ground running.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 2,
         "sortOrder": 7
       },
       {
         "id": "faq-008",
         "number": "008",
-        "question": "What kind of support do you offer licensees?",
-        "answer": "We provide ongoing brand updates, marketing support, operational consulting, and strategic guidance to help partners grow and maintain high performance.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 2,
         "sortOrder": 8
       },
       {
         "id": "faq-009",
         "number": "009",
-        "question": "Can I operate more than one brand or territory?",
-        "answer": "Yes. Many of our partners expand into multiple territories or operate more than one Ventured Brands business to diversify their income streams.",
+        "question": "lorem ipsum dolor set amit",
+        "answer": "lorem ipsum dolor set amit",
         "column": 2,
         "sortOrder": 9
       }
     ]
-  }
+  },
+  "lastUpdated": "2025-08-18T22:55:46.351Z"
 }

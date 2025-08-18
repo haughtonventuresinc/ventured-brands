@@ -1,29 +1,29 @@
 {
-  "lastUpdated": "2025-08-16T04:54:00.000Z",
   "sections": [
     {
       "id": "live",
       "title": "Live",
-      "shortDescription": "Changing lives",
-      "longDescription": "Licensing brands that make daily living better, cleaner, and easier."
+      "shortDescription": "lorem ipsum dolor set amit",
+      "longDescription": "lorem ipsum dolor set amit"
     },
     {
       "id": "work",
-      "title": "Work", 
-      "shortDescription": "Boosting growth",
-      "longDescription": "Creating plug-and-play business models that help owners scale fast."
+      "title": "Work",
+      "shortDescription": "lorem ipsum dolor set amit",
+      "longDescription": "lorem ipsum dolor set amit"
     },
     {
       "id": "play",
       "title": "Play",
-      "shortDescription": "Reinventing fun",
-      "longDescription": "Building nostalgic and exciting brands customers can't resist."
+      "shortDescription": "lorem ipsum dolor set amit",
+      "longDescription": "lorem ipsum dolor set amit"
     },
     {
       "id": "learn",
       "title": "Learn",
-      "shortDescription": "Pushing minds",
-      "longDescription": "Designing businesses that teach, train, and inspire at scale."
+      "shortDescription": "lorem ipsum dolor set amit",
+      "longDescription": "lorem ipsum dolor set amit"
     }
-  ]
+  ],
+  "lastUpdated": "2025-08-18T22:54:48.514Z"
 }

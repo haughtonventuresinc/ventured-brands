@@ -847,6 +847,10 @@
 
         function addGallerySlide(image = '', alt = '', index = null) {
             const container = document.getElementById('gallery-slides-container');
+            // If the container has a placeholder, clear it before adding the first slide.
+            if (container.children.length === 1 && container.querySelector('p')) {
+                container.innerHTML = '';
+            }
             const slideIndex = index !== null ? index : container.children.length;
             
             const slideDiv = document.createElement('div');

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "1755022304460kre023iqy",
+    "name": "Homepage",
+    "slug": "home",
+    "title": "Ventured Brands - Home",
+    "description": "Ventured Brands homepage - Venture studio and brand licensing",
+    "htmlFile": "index.html",
+    "contentBlocks": [],
+    "isPublished": true,
+    "lastModified": "2025-08-12T18:11:44.460Z",
+    "createdAt": "2025-08-12T18:11:44.460Z",
+    "updatedAt": "2025-08-12T18:11:44.460Z"
+  },
+  {
+    "id": "1755022304474iilcp9nfp",
+    "name": "About",
+    "slug": "about",
+    "title": "About - Ventured Brands",
+    "description": "Learn about Ventured Brands venture studio model",
+    "htmlFile": "about.html",
+    "contentBlocks": [],
+    "isPublished": true,
+    "lastModified": "2025-08-12T18:11:44.474Z",
+    "createdAt": "2025-08-12T18:11:44.474Z",
+    "updatedAt": "2025-08-12T18:11:44.474Z"
+  },
+  {
+    "id": "1755022304484ou3t2ciw9",
+    "name": "Contact",
+    "slug": "contact",
+    "title": "Contact - Ventured Brands",
+    "description": "Get in touch with Ventured Brands for licensing opportunities",
+    "htmlFile": "contact.html",
+    "contentBlocks": [],
+    "isPublished": true,
+    "lastModified": "2025-08-12T18:11:44.484Z",
+    "createdAt": "2025-08-12T18:11:44.484Z",
+    "updatedAt": "2025-08-12T18:11:44.484Z"
+  },
+  {
+    "id": "17550223044923pb1ag8m0",
+    "name": "Portfolio",
+    "slug": "portfolio",
+    "title": "Portfolio - Ventured Brands",
+    "description": "View our portfolio of brands and investments",
+    "htmlFile": "portfolio.html",
+    "contentBlocks": [],
+    "isPublished": true,
+    "lastModified": "2025-08-12T18:11:44.492Z",
+    "createdAt": "2025-08-12T18:11:44.492Z",
+    "updatedAt": "2025-08-12T18:11:44.492Z"
+  },
+  {
+    "id": "175502230450881zklkfl2",
+    "name": "Investment Verticals",
+    "slug": "verticals",
+    "title": "Investment Verticals - Ventured Brands",
+    "description": "Our investment focus areas and verticals",
+    "htmlFile": "verticals.html",
+    "contentBlocks": [],
+    "isPublished": true,
+    "lastModified": "2025-08-12T18:11:44.508Z",
+    "createdAt": "2025-08-12T18:11:44.508Z",
+    "updatedAt": "2025-08-12T18:11:44.508Z"
+  }
+]

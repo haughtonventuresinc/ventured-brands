@@ -1,0 +1,29 @@
+{
+  "lastUpdated": "2025-08-16T04:54:00.000Z",
+  "sections": [
+    {
+      "id": "live",
+      "title": "Live",
+      "shortDescription": "Changing lives",
+      "longDescription": "Licensing brands that make daily living better, cleaner, and easier."
+    },
+    {
+      "id": "work",
+      "title": "Work", 
+      "shortDescription": "Boosting growth",
+      "longDescription": "Creating plug-and-play business models that help owners scale fast."
+    },
+    {
+      "id": "play",
+      "title": "Play",
+      "shortDescription": "Reinventing fun",
+      "longDescription": "Building nostalgic and exciting brands customers can't resist."
+    },
+    {
+      "id": "learn",
+      "title": "Learn",
+      "shortDescription": "Pushing minds",
+      "longDescription": "Designing businesses that teach, train, and inspire at scale."
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "hero": {
+    "title": "Ventured Brands",
+    "subtitle": "Building Tomorrow's Brands Today",
+    "headline1": "We Invest IN",
+    "headline2": "Bold Founders",
+    "description": "Let's journey together into industries with unbounded growth potential."
+  },
+  "logoSection": {
+    "title": "We understand VCs are tough",
+    "description": "We are dedicated to finding the most tenacious and ambitious minds in four key industries.",
+    "buttonText": "View Our Verticles",
+    "logos": [
+      {
+        "image": "images/Washology.png",
+        "alt": "Washology logo"
+      },
+      {
+        "image": "uploads/file-1755113101072-646856963.png",
+        "alt": "InpectorWiz logo"
+      }
+    ]
+  },
+  "benefitsSection": {
+    "title": "We understand our founders",
+    "description": "Bold Capital is on a mission to back the boldest founders changing industries across four verticals. Our portfolio companies have reached unicorn exits, with our founders maintaining a large amount of equity. We're here to help our founders achieve their goals and break into industries with massive growth potential."
+  },
+  "processCards": {
+    "0": {
+      "number": "01",
+      "title": "Pre-Seed",
+      "description": "We invest at the pre-seed stage, providing up to $750k in capital to help founders grow to the next level."
+    },
+    "1": {
+      "number": "02",
+      "title": "Unicorns",
+      "description": "Our portfolio companies have reached unicorn status, and our founders maintain a large amount of equity."
+    },
+    "2": {
+      "number": "03",
+      "title": "Process",
+      "description": "Our transparent and open investment process ensures you always know where you are in our process."
+    },
+    "3": {
+      "number": "04",
+      "title": "$400k+",
+      "description": "We're passionate about helping founders grow fast, and our average initial cheque size is $400k."
+    }
+  },
+  "portfolioSection": {
+    "title": "Our investments are top-tier",
+    "description": "Most of our portfolio companies have achieved unicorn exits with our founders holding majority equity.",
+    "buttonText": "view our portfolio",
+    "image": "images/venture-008.webp",
+    "portfolioItems": [
+      {
+        "image": "images/Washology.png",
+        "alt": "Washology",
+        "category": "Work",
+        "date": "1.5.2023",
+        "link": "work/pendo.html"
+      },
+      {
+        "image": "uploads/file-1755110969875-869010216.png",
+        "alt": "Inspector Wiz",
+        "category": "Play",
+        "date": "1.5.2023",
+        "link": "work/company.html"
+      }
+    ]
+  },
+  "teamSection": {
+    "title": "We found the best talent",
+    "description": "Our team is passionate about working with founders who break through barriers.",
+    "buttonText": "read our story",
+    "teamMembers": [
+      {
+        "name": "Emily Carson",
+        "title": "PRINCIPAL",
+        "image": "images/person-007.webp",
+        "alt": "Emily Carson - Principal"
+      },
+      {
+        "name": "Skyler Humphry",
+        "title": "PARTNER",
+        "image": "images/person-009.webp",
+        "alt": "Skyler Humphry - Partner"
+      },
+      {
+        "name": "Brad Gullens",
+        "title": "PARTNER",
+        "image": "images/person-004.webp",
+        "alt": "Brad Gullens - Partner"
+      }
+    ]
+  },
+  "logos": [
+    {
+      "name": "Washology",
+      "image": "images/Washology.png",
+      "alt": "Washology logo"
+    },
+    {
+      "name": "Swim Studs",
+      "image": "images/Swim Studs.png",
+      "alt": "Swim Studs logo"
+    },
+    {
+      "name": "InspectorWiz",
+      "image": "images/InspectorWiz™ NoBG.png",
+      "alt": "InspectorWiz logo"
+    },
+    {
+      "name": "Slack",
+      "image": "images/slack-light.svg",
+      "alt": "Slack logo"
+    },
+    {
+      "name": "Stripe",
+      "image": "images/stripe-light.svg",
+      "alt": "Stripe logo"
+    },
+    {
+      "name": "Upwork",
+      "image": "images/upwork-light.svg",
+      "alt": "Upwork logo"
+    },
+    {
+      "name": "Gusto",
+      "image": "images/gusto-light.svg",
+      "alt": "Gusto logo"
+    },
+    {
+      "name": "Attentive",
+      "image": "images/attentive-light.svg",
+      "alt": "Attentive logo"
+    },
+    {
+      "name": "Dribbble",
+      "image": "images/dribbble-light.svg",
+      "alt": "Dribbble logo"
+    }
+  ],
+  "updatedAt": "2025-08-13T19:29:22.003Z"
+}
