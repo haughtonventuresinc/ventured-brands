@@ -1,52 +1,92 @@
 {
   "hero": {
-    "subtitle": "lorem ipsum dolor set amit",
-    "description": "lorem ipsum dolor set amit",
-    "image": "uploads/file-1755557220460-86371570.jpg",
-    "storyTitle": "lorem ipsum dolor set amit"
+    "subtitle": "Building Tomorrow's Brands Today",
+    "description": "Empowering Brand Excellence\n\nWe are a premier brand management company specializing in acquiring, developing, and scaling consumer brands across multiple industries.",
+    "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f2c9bcdd42ada3276e5cda_Venture%20001.webp",
+    "storyTitle": "Our Story"
   },
   "storyIntro": {
-    "title": "lorem ipsum dolor set amit",
-    "description": "lorem ipsum dolor set amit"
+    "title": "Discover Our Brand Portfolio Excellence",
+    "description": "At Ventured Brands, we specialize in acquiring, developing, and scaling consumer brands that resonate with today's discerning customers. Our mission is to transform promising brands into market leaders through strategic innovation, operational excellence, and data-driven growth strategies.\n\nWe focus on brands with strong fundamentals and untapped potential, providing them with the resources, expertise, and strategic direction needed to achieve sustainable growth. Our comprehensive approach encompasses brand positioning, product development, market expansion, and digital transformation.\n\nOur portfolio spans multiple industries, from lifestyle and wellness to technology and consumer goods. Each brand in our portfolio benefits from our proven methodologies, extensive network, and commitment to long-term value creation. We don't just acquire brands – we elevate them to new heights of success."
   },
   "story": {
-    "title": "lorem ipsum dolor set amit",
-    "description": "lorem ipsum dolor set amit",
-    "content": "lorem ipsum dolor set amit",
-    "image1": "uploads/file-1755557239942-15828799.jpg",
-    "image2": "uploads/file-1755557243140-476432918.jpg"
+    "title": "Our Journey",
+    "description": "At Ventured Brands, we specialize in acquiring promising businesses and transforming them into market-leading brands through strategic investment, operational excellence, and innovative growth strategies.",
+    "content": "Founded on the principle that great brands are built through partnership and expertise, we've developed a proven methodology for identifying, acquiring, and scaling businesses across diverse industries. Our team combines deep industry knowledge with cutting-edge technology to accelerate growth and maximize value for all stakeholders.",
+    "image1": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f01df7eead469ed8360ed7_Person%20006.webp",
+    "image2": "images/person-004.webp"
   },
   "quote": {
-    "text": "lorem ipsum dolor set amit",
-    "author": "lorem ipsum dolor set amit"
+    "text": "We transform brands into market leaders through strategic excellence",
+    "author": "Sarah Mitchell"
   },
   "gallery": {
     "slides": [
       {
-        "image": "uploads/file-1755557521969-389550726.jpg",
-        "alt": ""
+        "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f2c9bbdd42ad30de6e5cb9_Venture%20009.webp",
+        "alt": "People working in an office."
+      },
+      {
+        "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f2c9bc49b46c0358c4e8fd_Venture%20004.webp",
+        "alt": "Office space in a building."
+      },
+      {
+        "image": "images/venture-008.webp",
+        "alt": "People working in an office."
+      },
+      {
+        "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f2c9ba4ae7434e8c77711e_Venture%20006.webp",
+        "alt": "People working in an office."
       }
     ]
   },
   "team": {
-    "title": "lorem ipsum dolor set amit",
-    "description": "lorem ipsum dolor set amit",
+    "title": " Our Expert <br/>Leadership Team",
+    "description": "Our leadership team brings decades of experience in brand management, strategic growth, and market expansion.",
     "teamMembers": [
       {
-        "name": "lorem ipsum dolor set amit",
-        "title": "lorem ipsum dolor set amit",
-        "image": "uploads/file-1755557260165-15503127.jpg",
-        "alt": "lorem ipsum dolor set amit",
-        "bio": "lorem ipsum dolor set amit"
+        "name": "Sarah Mitchell",
+        "title": "CEO & Founder",
+        "image": "images/person-007.webp",
+        "alt": "Sarah Mitchell, CEO & Founder",
+        "bio": "Sarah brings over 15 years of experience in venture capital and brand development, having successfully scaled multiple companies from startup to market leadership."
       },
       {
-        "name": "lorem ipsum dolor set amit",
-        "title": "lorem ipsum dolor set amit",
+        "name": "Michael Chen",
+        "title": "Chief Strategy Officer",
         "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f01df7eead46542b360ed2_Person%20001.webp",
-        "alt": "lorem ipsum dolor set amit",
-        "bio": "lorem ipsum dolor set amit"
+        "alt": "Michael Chen, Chief Strategy Officer",
+        "bio": "Michael specializes in strategic planning and market analysis, with a proven track record of identifying high-growth opportunities across diverse industries."
+      },
+      {
+        "name": "Jessica Rodriguez",
+        "title": "VP of Brand Development",
+        "image": "images/person-004.webp",
+        "alt": "Jessica Rodriguez, VP of Brand Development",
+        "bio": "Jessica leads our brand development initiatives, combining creative vision with data-driven insights to build compelling brand narratives and market positioning."
+      },
+      {
+        "name": "David Thompson",
+        "title": "Head of Operations",
+        "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f01df7eead469ed8360ed7_Person%20006.webp",
+        "alt": "David Thompson, Head of Operations",
+        "bio": "David oversees operational excellence across our portfolio, ensuring efficient processes and sustainable growth for all our partner brands."
+      },
+      {
+        "name": "Amanda Foster",
+        "title": "Director of Marketing",
+        "image": "images/person-003.webp",
+        "alt": "Amanda Foster, Director of Marketing",
+        "bio": "Amanda drives marketing strategy and execution, leveraging digital channels and innovative campaigns to accelerate brand awareness and customer acquisition."
+      },
+      {
+        "name": "Robert Kim",
+        "title": "Chief Financial Officer",
+        "image": "images/person-009.webp",
+        "alt": "Robert Kim, Chief Financial Officer",
+        "bio": "Robert manages financial strategy and investment decisions, ensuring optimal capital allocation and sustainable growth across our portfolio companies."
       }
     ]
   },
-  "updatedAt": "2025-08-18T22:53:03.575Z"
+  "updatedAt": "2025-08-13T21:48:35.585Z"
 }
