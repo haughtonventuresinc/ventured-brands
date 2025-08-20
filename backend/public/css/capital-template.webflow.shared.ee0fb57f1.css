@@ -7446,3 +7446,20 @@ body {
     transform: none !important;
   }
 }
+
+/* Portfolio: vertical (top-to-bottom) looping for rotated strips */
+.looping-text-wrap .looping-text-strip {
+  animation: vb-marquee-left 12s linear infinite;  /* move to its right after 90deg rotation */
+}
+
+.looping-text-wrap .looping-text-strip + .looping-text-strip {
+  animation: vb-marquee-right 12s linear infinite;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .looping-text-wrap .looping-text-strip {
+    animation: none !important;
+    transform: none !important;
+  }
+}
