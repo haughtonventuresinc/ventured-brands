@@ -2,13 +2,13 @@
   "hero": {
     "title": "Ventured Brands",
     "subtitle": "Building Tomorrow's Brands Today",
-    "headline1": "We Invest IN",
-    "headline2": "Bold Founders",
+    "headline1": " Fully Engineered",
+    "headline2": "for Success",
     "description": "Let's journey together into industries with unbounded growth potential."
   },
   "logoSection": {
-    "title": "We understand VCs are tough",
-    "description": "We are dedicated to finding the most tenacious and ambitious minds in four key industries.",
+    "title": " We understand VISIONARIES",
+    "description": "Together, we take bold concepts and build market leaders that dominate their space.",
     "buttonText": "View Our Verticles",
     "logos": [
       {
@@ -18,54 +18,87 @@
       {
         "image": "uploads/file-1755113101072-646856963.png",
         "alt": "InpectorWiz logo"
+      },
+      {
+        "image": "uploads/file-1755677110753-244438249.png",
+        "alt": "Swim-Studz logo"
+      },
+      {
+        "image": "uploads/file-1755677131592-38146107.png",
+        "alt": "Index-Wizard logo"
+      },
+      {
+        "image": "uploads/file-1755677142882-577892198.png",
+        "alt": "Acenstra-Partners logo"
       }
     ]
   },
   "benefitsSection": {
     "title": "We understand our founders",
-    "description": "Bold Capital is on a mission to back the boldest founders changing industries across four verticals. Our portfolio companies have reached unicorn exits, with our founders maintaining a large amount of equity. We're here to help our founders achieve their goals and break into industries with massive growth potential."
+    "description": "Ventured Brands partners with ambitious entrepreneurs to transform powerful ideas into market-leading businesses. From franchise-ready startups to revitalized legacy brands, we equip our partners with the systems, strategy, and brand power to scale fast — while keeping ownership and control in their hands. Our goal is simple: create brands with lasting value and undeniable demand."
   },
   "processCards": {
     "0": {
       "number": "01",
-      "title": "Pre-Seed",
-      "description": "We invest at the pre-seed stage, providing up to $750k in capital to help founders grow to the next level."
+      "title": "LAUNCH",
+      "description": "We create ready-to-scale brands with proven systems, clear demand, and plug-and-play operations."
     },
     "1": {
       "number": "02",
-      "title": "Unicorns",
-      "description": "Our portfolio companies have reached unicorn status, and our founders maintain a large amount of equity."
+      "title": "GROW",
+      "description": "Our partners expand quickly through licensing and franchising, backed by our marketing and operational support."
     },
     "2": {
       "number": "03",
-      "title": "Process",
-      "description": "Our transparent and open investment process ensures you always know where you are in our process."
+      "title": "PROCESS",
+      "description": "A streamlined, transparent onboarding ensures every partner knows exactly how to launch, grow, and succeed."
     },
     "3": {
       "number": "04",
-      "title": "$400k+",
-      "description": "We're passionate about helping founders grow fast, and our average initial cheque size is $400k."
+      "title": "RESULTS",
+      "description": "We focus on high-margin, high-demand business models designed to deliver predictable, sustainable revenue."
     }
   },
   "portfolioSection": {
     "title": "Our investments are top-tier",
-    "description": "Most of our portfolio companies have achieved unicorn exits with our founders holding majority equity.",
+    "description": "Many of our brands have grown into market leaders, with partners enjoying strong cash flow and exclusive control over their territories.",
     "buttonText": "view our portfolio",
     "image": "images/venture-008.webp",
     "portfolioItems": [
       {
         "image": "images/Washology.png",
         "alt": "Washology",
-        "category": "Work",
-        "date": "1.5.2023",
+        "category": "Home Services",
+        "date": "Pressure Washing & Soft Washing",
         "link": "work/pendo.html"
       },
       {
         "image": "uploads/file-1755110969875-869010216.png",
         "alt": "Inspector Wiz",
-        "category": "Play",
-        "date": "1.5.2023",
+        "category": "Home Services",
+        "date": "Home Inspection & Apprasials",
         "link": "work/company.html"
+      },
+      {
+        "image": "uploads/file-1755676173054-583019147.png",
+        "alt": "Portfolio item 3",
+        "category": "Home Services",
+        "date": "Pool Cleaning",
+        "link": "https://swimstuds.com/preview"
+      },
+      {
+        "image": "uploads/file-1755676206999-798268394.png",
+        "alt": "index-wizard",
+        "category": "SAAS",
+        "date": "Stock Market Algorithms",
+        "link": "https://www.indexwizard.xyz/"
+      },
+      {
+        "image": "uploads/file-1755676257481-215705446.png",
+        "alt": "acenstra",
+        "category": "SAAS",
+        "date": "Finance",
+        "link": "https://www.ascentrapartners.com/"
       }
     ]
   },
@@ -75,22 +108,10 @@
     "buttonText": "read our story",
     "teamMembers": [
       {
-        "name": "Emily Carson",
-        "title": "PRINCIPAL",
-        "image": "images/person-007.webp",
-        "alt": "Emily Carson - Principal"
-      },
-      {
-        "name": "Skyler Humphry",
-        "title": "PARTNER",
-        "image": "images/person-009.webp",
-        "alt": "Skyler Humphry - Partner"
-      },
-      {
-        "name": "Brad Gullens",
-        "title": "PARTNER",
-        "image": "images/person-004.webp",
-        "alt": "Brad Gullens - Partner"
+        "name": "Moses Haughton Jr",
+        "title": "Founder",
+        "image": "uploads/file-1755676391243-302489979.jpg",
+        "alt": "Moses Haughton Jr"
       }
     ]
   },
@@ -141,5 +162,5 @@
       "alt": "Dribbble logo"
     }
   ],
-  "updatedAt": "2025-08-13T19:29:22.003Z"
+  "updatedAt": "2025-08-20T08:05:54.404Z"
 }

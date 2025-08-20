@@ -4654,7 +4654,7 @@ figcaption {
 .about-hero-middle {
   grid-column-gap: 10rem;
   grid-row-gap: 10rem;
-  background-color: white;
+  background-color: black;
   flex-direction: column;
   flex: 1;
   grid-template-rows: auto;
@@ -4692,6 +4692,7 @@ figcaption {
 
 .about-hero-description {
   max-width: 20rem;
+  margin-bottom: 20px;
 }
 
 .about-intro-title {
@@ -7411,5 +7412,37 @@ body {
 
   #w-node-_295cbd71-32c1-ae13-c2d3-9edeb70bd73e-b70bd72a {
     grid-column-start: 1;
+  }
+}
+
+/* Marquee loop for contact hero looping text */
+.looping-base .page-title-loop {
+  animation: vb-marquee-right 10s linear infinite; /* was 30s */
+}
+
+.looping-base + .looping-base .page-title-loop {
+  animation: vb-marquee-left 10s linear infinite; /* set full animation (not just name) */
+}
+
+/* If there are two consecutive .looping-base rows, run the second in the opposite direction for variation */
+.looping-base + .looping-base .page-title-loop {
+  animation-name: vb-marquee-right;
+}
+
+@keyframes vb-marquee-left {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes vb-marquee-right {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(50%, 0, 0); }
+}
+
+/* Accessibility: respect reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+  .looping-base .page-title-loop {
+    animation: none !important;
+    transform: none !important;
   }
 }

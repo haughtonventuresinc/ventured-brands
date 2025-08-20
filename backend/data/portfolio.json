@@ -1,191 +1,59 @@
 {
   "hero": {
-    "title": "lorem ipsum dolor",
-    "description": "lorem ipsum dolor"
+    "title": "Our Portfolio",
+    "description": "At Ventured Brands, we specialize in building and licensing high-margin, high-demand businesses designed for scalability."
   },
   "projects": [
     {
-      "id": "airbnb",
-      "title": "Airbnb",
-      "category": "Travel & Hospitality",
-      "description": "Global marketplace for lodging and tourism experiences",
-      "url": "/work/airbnb",
-      "tags": [
-        "Marketplace",
-        "Travel",
-        "Platform"
-      ],
+      "id": "swim-studs",
+      "title": "Swim Studs",
+      "category": "Home Services",
+      "description": "",
+      "url": "https://swimstuds.com/preview",
+      "tags": [],
       "isActive": true,
       "sortOrder": 1
     },
     {
-      "id": "square",
-      "title": "Square",
-      "category": "FinTech",
-      "description": "Financial services and mobile payment company",
-      "url": "work/square.html",
-      "tags": [
-        "Payments",
-        "FinTech",
-        "SaaS"
-      ],
+      "id": "washology",
+      "title": "Washology",
+      "category": "Home Services",
+      "description": "",
+      "url": "https://washologypressurewashing.com/",
+      "tags": [],
       "isActive": true,
       "sortOrder": 2
     },
     {
-      "id": "pendo",
-      "title": "Pendo",
-      "category": "SaaS",
-      "description": "Product analytics and user guidance platform",
-      "url": "work/pendo.html",
-      "tags": [
-        "Analytics",
-        "Product",
-        "SaaS"
-      ],
+      "id": "inspector-wiz",
+      "title": "Inspector Wiz",
+      "category": "Home Services",
+      "description": "",
+      "url": "https://inspectorwiz.com/",
+      "tags": [],
       "isActive": true,
       "sortOrder": 3
     },
     {
-      "id": "gusto",
-      "title": "Gusto",
-      "category": "HR Tech",
-      "description": "People platform for payroll, benefits, and HR",
-      "url": "/work/gusto",
-      "tags": [
-        "HR",
-        "Payroll",
-        "SaaS"
-      ],
+      "id": "index-wizard",
+      "title": "Index Wizard",
+      "category": "SAAS",
+      "description": "",
+      "url": "https://www.indexwizard.xyz/",
+      "tags": [],
+      "isActive": true,
+      "sortOrder": 4
+    },
+    {
+      "id": "ascentra",
+      "title": "Ascentra",
+      "category": "Finance",
+      "description": "",
+      "url": "https://www.ascentrapartners.com/",
+      "tags": [],
       "isActive": true,
       "sortOrder": 5
-    },
-    {
-      "id": "docusign",
-      "title": "DocuSign",
-      "category": "Document Management",
-      "description": "Electronic signature and digital transaction management",
-      "url": "/work/docusign",
-      "tags": [
-        "Documents",
-        "E-signature",
-        "SaaS"
-      ],
-      "isActive": true,
-      "sortOrder": 6
-    },
-    {
-      "id": "zapier",
-      "title": "Zapier",
-      "category": "Automation",
-      "description": "Workflow automation platform",
-      "url": "/work/zapier",
-      "tags": [
-        "Automation",
-        "Integration",
-        "SaaS"
-      ],
-      "isActive": true,
-      "sortOrder": 7
-    },
-    {
-      "id": "dribbble",
-      "title": "Dribbble",
-      "category": "Design",
-      "description": "Community for designers and creative professionals",
-      "url": "/work/dribbble",
-      "tags": [
-        "Design",
-        "Community",
-        "Creative"
-      ],
-      "isActive": true,
-      "sortOrder": 8
-    },
-    {
-      "id": "stripe",
-      "title": "Stripe",
-      "category": "FinTech",
-      "description": "Online payment processing platform",
-      "url": "/work/stripe",
-      "tags": [
-        "Payments",
-        "FinTech",
-        "API"
-      ],
-      "isActive": true,
-      "sortOrder": 9
-    },
-    {
-      "id": "notion",
-      "title": "Notion",
-      "category": "Productivity",
-      "description": "All-in-one workspace for notes, docs, and collaboration",
-      "url": "/work/notion",
-      "tags": [
-        "Productivity",
-        "Collaboration",
-        "SaaS"
-      ],
-      "isActive": true,
-      "sortOrder": 10
-    },
-    {
-      "id": "loom",
-      "title": "Loom",
-      "category": "Communication",
-      "description": "Video messaging and screen recording platform",
-      "url": "/work/loom",
-      "tags": [
-        "Video",
-        "Communication",
-        "Recording"
-      ],
-      "isActive": true,
-      "sortOrder": 11
-    },
-    {
-      "id": "hotjar",
-      "title": "Hotjar",
-      "category": "Analytics",
-      "description": "Website heatmaps and user behavior analytics",
-      "url": "/work/hotjar",
-      "tags": [
-        "Analytics",
-        "UX",
-        "Heatmaps"
-      ],
-      "isActive": true,
-      "sortOrder": 12
-    },
-    {
-      "id": "attentive",
-      "title": "Attentive",
-      "category": "Marketing",
-      "description": "SMS and email marketing platform",
-      "url": "work/attentive.html",
-      "tags": [
-        "Marketing",
-        "SMS",
-        "Email"
-      ],
-      "isActive": true,
-      "sortOrder": 13
-    },
-    {
-      "id": "airtable",
-      "title": "Airtable",
-      "category": "Database",
-      "description": "Cloud collaboration platform with database functionality",
-      "url": "/work/airtable",
-      "tags": [
-        "Database",
-        "Collaboration",
-        "Platform"
-      ],
-      "isActive": true,
-      "sortOrder": 14
     }
   ],
-  "lastUpdated": "2025-08-15T21:51:46.091Z"
+  "lastUpdated": "2025-08-20T07:57:53.320Z"
 }

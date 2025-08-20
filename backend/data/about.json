@@ -45,48 +45,13 @@
     "description": "Our leadership team brings decades of experience in brand management, strategic growth, and market expansion.",
     "teamMembers": [
       {
-        "name": "Sarah Mitchell",
-        "title": "CEO & Founder",
-        "image": "images/person-007.webp",
-        "alt": "Sarah Mitchell, CEO & Founder",
-        "bio": "Sarah brings over 15 years of experience in venture capital and brand development, having successfully scaled multiple companies from startup to market leadership."
-      },
-      {
-        "name": "Michael Chen",
-        "title": "Chief Strategy Officer",
-        "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f01df7eead46542b360ed2_Person%20001.webp",
-        "alt": "Michael Chen, Chief Strategy Officer",
-        "bio": "Michael specializes in strategic planning and market analysis, with a proven track record of identifying high-growth opportunities across diverse industries."
-      },
-      {
-        "name": "Jessica Rodriguez",
-        "title": "VP of Brand Development",
-        "image": "images/person-004.webp",
-        "alt": "Jessica Rodriguez, VP of Brand Development",
-        "bio": "Jessica leads our brand development initiatives, combining creative vision with data-driven insights to build compelling brand narratives and market positioning."
-      },
-      {
-        "name": "David Thompson",
-        "title": "Head of Operations",
-        "image": "https://cdn.prod.website-files.com/63f01df7eead46b8df360d90/63f01df7eead469ed8360ed7_Person%20006.webp",
-        "alt": "David Thompson, Head of Operations",
-        "bio": "David oversees operational excellence across our portfolio, ensuring efficient processes and sustainable growth for all our partner brands."
-      },
-      {
-        "name": "Amanda Foster",
-        "title": "Director of Marketing",
-        "image": "images/person-003.webp",
-        "alt": "Amanda Foster, Director of Marketing",
-        "bio": "Amanda drives marketing strategy and execution, leveraging digital channels and innovative campaigns to accelerate brand awareness and customer acquisition."
-      },
-      {
-        "name": "Robert Kim",
-        "title": "Chief Financial Officer",
-        "image": "images/person-009.webp",
-        "alt": "Robert Kim, Chief Financial Officer",
-        "bio": "Robert manages financial strategy and investment decisions, ensuring optimal capital allocation and sustainable growth across our portfolio companies."
+        "name": "Moses Haughton Jr",
+        "title": "Founder",
+        "image": "uploads/file-1755677007125-115726290.jpg",
+        "alt": "Moses Haughton Jr",
+        "bio": ""
       }
     ]
   },
-  "updatedAt": "2025-08-13T21:48:35.585Z"
+  "updatedAt": "2025-08-20T08:03:35.742Z"
 }
